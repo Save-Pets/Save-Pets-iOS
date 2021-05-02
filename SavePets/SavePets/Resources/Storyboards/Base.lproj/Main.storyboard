@@ -739,10 +739,10 @@
             </objects>
             <point key="canvasLocation" x="2100" y="873"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SavePets" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="SavePets" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -769,6 +769,9 @@
                                         <state key="normal" title="등록하기">
                                             <color key="titleColor" name="AccentColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="enrollButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zKU-pc-mvR"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGP-mu-ahF">
                                         <rect key="frame" x="0.0" y="65" width="314" height="50"/>
@@ -780,6 +783,9 @@
                                         <state key="normal" title="조회하기">
                                             <color key="titleColor" name="AccentColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="searchButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kJa-Su-JCh"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -808,6 +814,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nD6-fu-ZHn"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="Qsg-cZ-XYL" id="n1n-Rb-lwu"/>
+                        <outlet property="enrollButton" destination="vLl-iU-PcY" id="dqX-G9-vAY"/>
+                        <outlet property="searchButton" destination="uGP-mu-ahF" id="Hnb-kn-mCs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
