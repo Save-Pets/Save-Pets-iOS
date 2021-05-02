@@ -99,13 +99,8 @@
 		1C7A2FA82622C83D008370DF /* SavePets */ = {
 			isa = PBXGroup;
 			children = (
-				1C7A2FA92622C83D008370DF /* AppDelegate.swift */,
-				1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */,
-				1C7A2FAD2622C83D008370DF /* ViewController.swift */,
-				1C7A2FAF2622C83D008370DF /* Main.storyboard */,
-				1C7A2FB22622C83F008370DF /* Assets.xcassets */,
-				1C7A2FB42622C83F008370DF /* LaunchScreen.storyboard */,
-				1C7A2FB72622C83F008370DF /* Info.plist */,
+				1CD74501263299A600A7FCE2 /* Sources */,
+				1CD745002632999A00A7FCE2 /* Resources */,
 			);
 			path = SavePets;
 			sourceTree = "<group>";
@@ -126,6 +121,83 @@
 				1C7A2FCD2622C840008370DF /* Info.plist */,
 			);
 			path = SavePetsUITests;
+			sourceTree = "<group>";
+		};
+		1CD745002632999A00A7FCE2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1C7A2FB72622C83F008370DF /* Info.plist */,
+				1C7A2FB22622C83F008370DF /* Assets.xcassets */,
+				1CD74503263299C900A7FCE2 /* Storyboards */,
+				1CD74502263299BE00A7FCE2 /* Constants */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1CD74501263299A600A7FCE2 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1C7A2FA92622C83D008370DF /* AppDelegate.swift */,
+				1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */,
+				1CD74504263299FA00A7FCE2 /* Models */,
+				1CD7450926329A6D00A7FCE2 /* ViewControllers */,
+				1CD7450826329A6700A7FCE2 /* Views */,
+				1CD7450726329A5E00A7FCE2 /* Cells */,
+				1CD7450626329A3600A7FCE2 /* Extensions */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1CD74502263299BE00A7FCE2 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		1CD74503263299C900A7FCE2 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1C7A2FAF2622C83D008370DF /* Main.storyboard */,
+				1C7A2FB42622C83F008370DF /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		1CD74504263299FA00A7FCE2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1CD7450626329A3600A7FCE2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1CD7450726329A5E00A7FCE2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1CD7450826329A6700A7FCE2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1CD7450926329A6D00A7FCE2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1C7A2FAD2622C83D008370DF /* ViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,14 +508,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SavePets/Info.plist;
+				DEVELOPMENT_TEAM = 3885XCJRT2;
+				INFOPLIST_FILE = SavePets/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = haeseok.SavePets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -454,14 +529,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SavePets/Info.plist;
+				DEVELOPMENT_TEAM = 3885XCJRT2;
+				INFOPLIST_FILE = SavePets/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = haeseok.SavePets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -473,6 +551,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3885XCJRT2;
 				INFOPLIST_FILE = SavePetsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -494,6 +573,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3885XCJRT2;
 				INFOPLIST_FILE = SavePetsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -514,6 +594,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3885XCJRT2;
 				INFOPLIST_FILE = SavePetsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -533,6 +614,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3885XCJRT2;
 				INFOPLIST_FILE = SavePetsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
