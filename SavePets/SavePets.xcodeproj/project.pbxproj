@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FA92622C83D008370DF /* AppDelegate.swift */; };
 		1C7A2FAC2622C83D008370DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */; };
-		1C7A2FAE2622C83D008370DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAD2622C83D008370DF /* ViewController.swift */; };
+		1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAD2622C83D008370DF /* HomeViewController.swift */; };
 		1C7A2FB12622C83D008370DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAF2622C83D008370DF /* Main.storyboard */; };
 		1C7A2FB32622C83F008370DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A2FB22622C83F008370DF /* Assets.xcassets */; };
 		1C7A2FB62622C83F008370DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7A2FB42622C83F008370DF /* LaunchScreen.storyboard */; };
 		1C7A2FC12622C840008370DF /* SavePetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FC02622C840008370DF /* SavePetsTests.swift */; };
 		1C7A2FCC2622C840008370DF /* SavePetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FCB2622C840008370DF /* SavePetsUITests.swift */; };
+		1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */; };
+		1C8CC289263F20FC00DD9D1E /* main_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C8CC288263F20FC00DD9D1E /* main_video.mp4 */; };
+		1C8CC28B263F262D00DD9D1E /* loadIng_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C8CC28A263F262D00DD9D1E /* loadIng_video.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,7 @@
 		1C7A2FA62622C83D008370DF /* SavePets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SavePets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7A2FA92622C83D008370DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1C7A2FAD2622C83D008370DF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1C7A2FAD2622C83D008370DF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1C7A2FB02622C83D008370DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C7A2FB22622C83F008370DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C7A2FB52622C83F008370DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +52,9 @@
 		1C7A2FC72622C840008370DF /* SavePetsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SavePetsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7A2FCB2622C840008370DF /* SavePetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePetsUITests.swift; sourceTree = "<group>"; };
 		1C7A2FCD2622C840008370DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		1C8CC288263F20FC00DD9D1E /* main_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = main_video.mp4; sourceTree = "<group>"; };
+		1C8CC28A263F262D00DD9D1E /* loadIng_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loadIng_video.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +132,8 @@
 		1CD745002632999A00A7FCE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1C8CC288263F20FC00DD9D1E /* main_video.mp4 */,
+				1C8CC28A263F262D00DD9D1E /* loadIng_video.mp4 */,
 				1C7A2FB72622C83F008370DF /* Info.plist */,
 				1C7A2FB22622C83F008370DF /* Assets.xcassets */,
 				1CD74503263299C900A7FCE2 /* Storyboards */,
@@ -174,6 +182,7 @@
 		1CD7450626329A3600A7FCE2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -195,7 +204,7 @@
 		1CD7450926329A6D00A7FCE2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1C7A2FAD2622C83D008370DF /* ViewController.swift */,
+				1C7A2FAD2622C83D008370DF /* HomeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -306,6 +315,8 @@
 				1C7A2FB62622C83F008370DF /* LaunchScreen.storyboard in Resources */,
 				1C7A2FB32622C83F008370DF /* Assets.xcassets in Resources */,
 				1C7A2FB12622C83D008370DF /* Main.storyboard in Resources */,
+				1C8CC28B263F262D00DD9D1E /* loadIng_video.mp4 in Resources */,
+				1C8CC289263F20FC00DD9D1E /* main_video.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,8 +341,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C7A2FAE2622C83D008370DF /* ViewController.swift in Sources */,
+				1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */,
 				1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */,
+				1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */,
 				1C7A2FAC2622C83D008370DF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
