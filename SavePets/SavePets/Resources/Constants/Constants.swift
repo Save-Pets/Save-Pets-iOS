@@ -18,5 +18,6 @@ struct Constants {
         static let nosePhotoShootViewController: String = "NosePhotoShootViewController"
         static let dogProfileViewController: String = "DogProfileViewController"
         static let ownerProfileViewController: String = "OwnerProfileViewController"
+        static let modalViewController: String = "ModalViewController"
     }
 }
