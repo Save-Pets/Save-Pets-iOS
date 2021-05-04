@@ -1,16 +1,20 @@
 PODS:
   - BSImagePicker (3.3.1)
+  - Presentr (1.9)
 
 DEPENDENCIES:
   - BSImagePicker (~> 3.1)
+  - Presentr
 
 SPEC REPOS:
   trunk:
     - BSImagePicker
+    - Presentr
 
 SPEC CHECKSUMS:
   BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
 
-PODFILE CHECKSUM: ffe6900c4ba6a440bb218a663b904855c400e1b4
+PODFILE CHECKSUM: 77f7928d074bc5a6096f1f70f2162692682aa47f
 
 COCOAPODS: 1.10.1

@@ -6,7 +6,8 @@ target 'SavePets' do
   use_frameworks!
 
   # Pods for SavePets
-  pod "BSImagePicker", "~> 3.1"
+  pod 'BSImagePicker', '~> 3.1'
+  pod 'Presentr'
 
 
 
