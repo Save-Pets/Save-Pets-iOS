@@ -191,6 +191,8 @@ class NoseSelectionViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
+        
+        self.navigationItem.backButtonTitle = "뒤로가기"
     }
     
     private func updateNoseImagesAndButton(index: Int, image: UIImage) {
