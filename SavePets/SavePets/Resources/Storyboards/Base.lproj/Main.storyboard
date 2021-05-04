@@ -18,60 +18,75 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgg-CF-Obm">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOm-2M-D6M">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1016"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="971"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려견 프로필" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyD-TY-RgN" userLabel="Title Label">
-                                                <rect key="frame" x="35" y="70" width="162.5" height="36"/>
+                                                <rect key="frame" x="35" y="25" width="162.5" height="36"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_dog" translatesAutoresizingMaskIntoConstraints="NO" id="ckw-y0-bH5" userLabel="Dog Image View" customClass="CustomProfileImage" customModule="SavePets" customModuleProvider="target">
-                                                <rect key="frame" x="119.5" y="156" width="175" height="175"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ckw-y0-bH5" userLabel="Dog Image View">
+                                                <rect key="frame" x="119.5" y="111" width="175" height="175"/>
+                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="175" id="fwb-6S-MlE"/>
                                                     <constraint firstAttribute="width" constant="175" id="pQu-Mo-ZFC"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMj-qW-6Ge" userLabel="Dog Image Selection Button">
-                                                <rect key="frame" x="258.5" y="295" width="36" height="36"/>
+                                                <rect key="frame" x="258.5" y="250" width="36" height="36"/>
                                                 <state key="normal" image="profileIcnPhoto"/>
+                                                <connections>
+                                                    <action selector="profileChangeButtonTouchUp:" destination="C4r-yz-pVe" eventType="touchUpInside" id="FOd-MP-yb6"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="gcN-oa-fSp" userLabel="Dog Profile Stack View">
-                                                <rect key="frame" x="60" y="381" width="294" height="475"/>
+                                                <rect key="frame" x="60" y="336" width="294" height="475"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="mbj-zR-b1g">
                                                         <rect key="frame" x="0.0" y="0.0" width="294" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려견 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfe-VB-CXD">
-                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="44"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="44"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                 <color key="textColor" name="AccentColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) 뽀삐, 초코, 보리" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dAl-SJ-ZJF">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NyG-6u-LgU">
                                                                 <rect key="frame" x="0.0" y="50" width="294" height="50"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) 초코" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dAl-SJ-ZJF">
+                                                                        <rect key="frame" x="20" y="10" width="254" height="30"/>
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="50" id="XA5-no-re4"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="dAl-SJ-ZJF" secondAttribute="bottom" constant="10" id="7yy-WV-tJk"/>
+                                                                    <constraint firstAttribute="height" constant="50" id="Bzu-TI-PxV"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="dAl-SJ-ZJF" secondAttribute="trailing" constant="20" id="g4r-BH-yOv"/>
+                                                                    <constraint firstItem="dAl-SJ-ZJF" firstAttribute="leading" secondItem="NyG-6u-LgU" secondAttribute="leading" constant="20" id="hmb-nm-dnR"/>
+                                                                    <constraint firstItem="dAl-SJ-ZJF" firstAttribute="top" secondItem="NyG-6u-LgU" secondAttribute="top" constant="10" id="p4r-Ya-VKH"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
-                                                            </textField>
+                                                            </view>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="dAl-SJ-ZJF" firstAttribute="leading" secondItem="mbj-zR-b1g" secondAttribute="leading" id="7XR-fs-yrh"/>
                                                             <constraint firstAttribute="height" constant="100" id="Fey-Ho-UiQ"/>
-                                                            <constraint firstAttribute="trailing" secondItem="dAl-SJ-ZJF" secondAttribute="trailing" id="fWq-Iy-lfh"/>
+                                                            <constraint firstAttribute="trailing" secondItem="NyG-6u-LgU" secondAttribute="trailing" id="UoA-TW-I7K"/>
+                                                            <constraint firstItem="NyG-6u-LgU" firstAttribute="leading" secondItem="mbj-zR-b1g" secondAttribute="leading" id="vdl-fz-jVg"/>
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="95W-bb-W04">
                                                         <rect key="frame" x="0.0" y="125" width="294" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려견 품종" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZLR-Dv-d6J">
-                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="44"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="44"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                 <color key="textColor" name="AccentColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -80,9 +95,13 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="yyI-YO-r1I"/>
                                                                 </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <state key="normal" title="선택하기">
-                                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="titleColor" systemColor="systemGray3Color"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="breedButtonTouchUp:" destination="C4r-yz-pVe" eventType="touchUpInside" id="Xeo-ih-FlG"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -95,8 +114,8 @@
                                                         <rect key="frame" x="0.0" y="250" width="294" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려견 태어난 해" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ec-n1-0Vu">
-                                                                <rect key="frame" x="0.0" y="0.0" width="130.5" height="44"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="44"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                 <color key="textColor" name="AccentColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -106,8 +125,11 @@
                                                                     <constraint firstAttribute="height" constant="50" id="5zN-fQ-lFA"/>
                                                                 </constraints>
                                                                 <state key="normal" title="선택하기">
-                                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="titleColor" systemColor="systemGray3Color"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="birthYearButtonTouchUp:" destination="C4r-yz-pVe" eventType="touchUpInside" id="rwo-c9-WyL"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -120,8 +142,8 @@
                                                         <rect key="frame" x="0.0" y="375" width="294" height="100"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려견 성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pvv-VX-MB3">
-                                                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="44"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="44"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                 <color key="textColor" name="AccentColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -131,8 +153,11 @@
                                                                     <constraint firstAttribute="height" constant="50" id="rfr-l1-ME4"/>
                                                                 </constraints>
                                                                 <state key="normal" title="선택하기">
-                                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="titleColor" systemColor="systemGray3Color"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="genderButtonTouchUp:" destination="C4r-yz-pVe" eventType="touchUpInside" id="VvT-0e-uYd"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -154,15 +179,19 @@
                                                 </constraints>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkU-BL-n3B" userLabel="Save Button">
-                                                <rect key="frame" x="50" y="916" width="70" height="50"/>
+                                                <rect key="frame" x="50" y="871" width="314" height="50"/>
                                                 <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Cg0-oa-PVh"/>
+                                                    <constraint firstAttribute="height" constant="50" id="Cpk-EA-4Fx"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                 <state key="normal" title="저장하기">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="saveButtonTouchUp:" destination="C4r-yz-pVe" eventType="touchUpInside" id="9yE-aK-6Kd"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -174,9 +203,9 @@
                                             <constraint firstItem="ckw-y0-bH5" firstAttribute="top" secondItem="lyD-TY-RgN" secondAttribute="bottom" constant="50" id="N7T-WQ-2c5"/>
                                             <constraint firstAttribute="bottom" secondItem="AkU-BL-n3B" secondAttribute="bottom" constant="50" id="ZE1-07-H5L"/>
                                             <constraint firstItem="lyD-TY-RgN" firstAttribute="leading" secondItem="gOm-2M-D6M" secondAttribute="leading" constant="35" id="Zyg-4b-6kW"/>
-                                            <constraint firstItem="lyD-TY-RgN" firstAttribute="top" secondItem="gOm-2M-D6M" secondAttribute="top" constant="70" id="avW-Hj-18d"/>
+                                            <constraint firstItem="lyD-TY-RgN" firstAttribute="top" secondItem="gOm-2M-D6M" secondAttribute="top" constant="25" id="avW-Hj-18d"/>
                                             <constraint firstAttribute="trailing" secondItem="gcN-oa-fSp" secondAttribute="trailing" constant="60" id="bHM-D8-Xa8"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AkU-BL-n3B" secondAttribute="trailing" symbolic="YES" id="cGK-hC-2rb"/>
+                                            <constraint firstAttribute="trailing" secondItem="AkU-BL-n3B" secondAttribute="trailing" constant="50" id="cGK-hC-2rb"/>
                                             <constraint firstItem="fMj-qW-6Ge" firstAttribute="bottom" secondItem="ckw-y0-bH5" secondAttribute="bottom" id="doa-6A-SZL"/>
                                             <constraint firstItem="gcN-oa-fSp" firstAttribute="top" secondItem="ckw-y0-bH5" secondAttribute="bottom" constant="50" id="duk-4R-9ZC"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lyD-TY-RgN" secondAttribute="trailing" constant="20" symbolic="YES" id="n63-Fz-UDJ"/>
@@ -196,13 +225,23 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="gOm-2M-D6M" firstAttribute="height" secondItem="9sC-cY-kok" secondAttribute="height" priority="250" id="Hed-Ab-mLa"/>
-                            <constraint firstAttribute="bottom" secondItem="sgg-CF-Obm" secondAttribute="bottom" id="HsI-DX-MFH"/>
+                            <constraint firstItem="AdD-Oa-Ly0" firstAttribute="bottom" secondItem="sgg-CF-Obm" secondAttribute="bottom" id="HsI-DX-MFH"/>
                             <constraint firstItem="gOm-2M-D6M" firstAttribute="width" secondItem="9sC-cY-kok" secondAttribute="width" id="SAQ-Db-cnY"/>
                             <constraint firstItem="sgg-CF-Obm" firstAttribute="leading" secondItem="9sC-cY-kok" secondAttribute="leading" id="fBt-Tr-AUj"/>
-                            <constraint firstItem="sgg-CF-Obm" firstAttribute="top" secondItem="9sC-cY-kok" secondAttribute="top" id="okq-mR-U4M"/>
+                            <constraint firstItem="sgg-CF-Obm" firstAttribute="top" secondItem="AdD-Oa-Ly0" secondAttribute="top" id="okq-mR-U4M"/>
                             <constraint firstAttribute="trailing" secondItem="sgg-CF-Obm" secondAttribute="trailing" id="yTW-BO-w2W"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="birthYearButton" destination="bUV-Aq-FLa" id="8ag-CV-fm0"/>
+                        <outlet property="breedButton" destination="jLz-FE-ifn" id="2dq-mg-Aph"/>
+                        <outlet property="genderButton" destination="3ac-0t-dxj" id="Smk-pS-ut3"/>
+                        <outlet property="nameTextField" destination="dAl-SJ-ZJF" id="C7L-nx-g0q"/>
+                        <outlet property="nameView" destination="NyG-6u-LgU" id="wiv-vu-sFA"/>
+                        <outlet property="profileChangeButton" destination="fMj-qW-6Ge" id="Ikl-4B-cTq"/>
+                        <outlet property="profileImageView" destination="ckw-y0-bH5" id="U4D-bS-ZP7"/>
+                        <outlet property="saveButton" destination="AkU-BL-n3B" id="4Rs-aW-fkV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z6m-CG-0n1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -660,6 +699,71 @@
             </objects>
             <point key="canvasLocation" x="2952" y="873"/>
         </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="Liv-zB-Ozy">
+            <objects>
+                <viewController storyboardIdentifier="ModalViewController" id="AAi-xi-Oxg" customClass="ModalViewController" customModule="SavePets" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iga-dX-90s">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UML-4t-yzu">
+                                <rect key="frame" x="0.0" y="114" width="414" height="386"/>
+                            </pickerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="v51-5b-Mod">
+                                <rect key="frame" x="30" y="64" width="354" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpL-4I-1fa">
+                                        <rect key="frame" x="0.0" y="0.0" width="39" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
+                                        <state key="normal" title="취소">
+                                            <color key="titleColor" name="AccentColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonTouchUp:" destination="AAi-xi-Oxg" eventType="touchUpInside" id="n8X-ie-8Hi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofO-SM-BqQ">
+                                        <rect key="frame" x="315" y="0.0" width="39" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <state key="normal" title="확인">
+                                            <color key="titleColor" name="AccentColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="confirmButtonTouchUp:" destination="AAi-xi-Oxg" eventType="touchUpInside" id="uqh-4j-gnz"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="O3M-8R-ppv"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Heu-1s-DhD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="v51-5b-Mod" firstAttribute="leading" secondItem="Heu-1s-DhD" secondAttribute="leading" constant="30" id="Enh-Cb-ZH6"/>
+                            <constraint firstItem="UML-4t-yzu" firstAttribute="top" secondItem="v51-5b-Mod" secondAttribute="bottom" id="F1s-Xc-KLg"/>
+                            <constraint firstItem="UML-4t-yzu" firstAttribute="leading" secondItem="Heu-1s-DhD" secondAttribute="leading" id="OF4-jG-foR"/>
+                            <constraint firstItem="Heu-1s-DhD" firstAttribute="trailing" secondItem="v51-5b-Mod" secondAttribute="trailing" constant="30" id="Oeo-oh-UKC"/>
+                            <constraint firstItem="Heu-1s-DhD" firstAttribute="trailing" secondItem="UML-4t-yzu" secondAttribute="trailing" id="cYS-NT-c3V"/>
+                            <constraint firstItem="Heu-1s-DhD" firstAttribute="top" secondItem="v51-5b-Mod" secondAttribute="top" constant="-20" id="nqI-yW-iUI"/>
+                            <constraint firstItem="Heu-1s-DhD" firstAttribute="bottom" secondItem="UML-4t-yzu" secondAttribute="bottom" id="zjr-Mk-k1d"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="414" height="500"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="500"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="qpL-4I-1fa" id="3qy-Eq-eDL"/>
+                        <outlet property="confirmButton" destination="ofO-SM-BqQ" id="pXO-Vd-23N"/>
+                        <outlet property="pickerView" destination="UML-4t-yzu" id="NF4-NW-OfQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="noD-Uc-egn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3831.884057971015" y="872.54464285714278"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="k48-eK-gOW">
             <objects>
@@ -930,9 +1034,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코가 제대로 인식 되지 않았습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9y6-da-qeb" userLabel="Message Label">
-                                <rect key="frame" x="101.5" y="484" width="211" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="102" y="484" width="210" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1X-2V-qWh">
@@ -1129,6 +1233,12 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
