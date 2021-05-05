@@ -9,21 +9,27 @@ import UIKit
 
 class EnrollmentLoadingViewController: UIViewController {
 
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var onwerNameLabel: UILabel!
+    @IBOutlet weak var dogNameLabel: UILabel!
+    
+    // MARK: - Variables
+    
+    var ownerName: String?
+    var dogName: String?
+    
+    // MARK: - View Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.initializeEnrollmentLoadingViewController()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func initializeEnrollmentLoadingViewController() {
+        self.onwerNameLabel.text = ownerName
+        self.dogNameLabel.text = dogName
     }
-    */
 
 }
