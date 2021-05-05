@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */; };
+		1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */; };
 		1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FA92622C83D008370DF /* AppDelegate.swift */; };
 		1C7A2FAC2622C83D008370DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */; };
 		1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAD2622C83D008370DF /* HomeViewController.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentLoadingViewController.swift; sourceTree = "<group>"; };
+		1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentResultViewController.swift; sourceTree = "<group>"; };
 		1C7A2FA62622C83D008370DF /* SavePets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SavePets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7A2FA92622C83D008370DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -240,6 +244,8 @@
 				1CF09295264133B90026C261 /* DogProfileViewController.swift */,
 				1CF09297264133CB0026C261 /* OwnerProfileViewController.swift */,
 				1CF092992641987C0026C261 /* ModalViewController.swift */,
+				1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */,
+				1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -508,6 +514,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */,
+				1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */,
+				1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */,
 				1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */,
 				1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */,
 				1CF09296264133B90026C261 /* DogProfileViewController.swift in Sources */,
