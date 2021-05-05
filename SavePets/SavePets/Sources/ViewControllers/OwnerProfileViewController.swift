@@ -24,6 +24,7 @@ class OwnerProfileViewController: UIViewController {
     private var ownerName: String?
     private var ownerPhoneNumber: String?
     private var ownerEmail: String?
+    private weak var enrollmentLoadingViewController: EnrollmentLoadingViewController?
     
     // MARK: - Life Cycles
     
@@ -64,11 +65,26 @@ class OwnerProfileViewController: UIViewController {
     }
         
     private func presentEnrollmentLoadingViewController() {
+        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
+        guard let enrollmentLoadingViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.enrollmentLoadingViewController) as? EnrollmentLoadingViewController else {
+            return
+        }
         
+        self.enrollmentLoadingViewController = enrollmentLoadingViewController
+        enrollmentLoadingViewController.ownerName = self.ownerName
+        enrollmentLoadingViewController.dogName = "뽀삐"
+        enrollmentLoadingViewController.modalPresentationStyle = .fullScreen
+        
+        present(enrollmentLoadingViewController, animated: true, completion: nil)
     }
     
     private func pushToEnrollmentResultViewController() {
+        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
+        guard let enrollmentResultViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.enrollmentResultViewController) as? EnrollmentResultViewController else {
+            return
+        }
         
+        self.navigationController?.pushViewController(enrollmentResultViewController, animated: true)
     }
     
     private func verifyProperty(_ name: String?) -> Bool {
@@ -86,11 +102,18 @@ class OwnerProfileViewController: UIViewController {
     }
 
     @IBAction func enrollmentButtonTouchUp(_ sender: UIButton) {
-        // TODO: - 서버로 등록 API 요청 보내기
+        
         // 로딩화면 띄우기
         self.presentEnrollmentLoadingViewController()
-        // 로딩화면 종료
-        self.pushToEnrollmentResultViewController()
+        
+        // TODO: - 서버로 등록 API 요청 보내기
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+            // 로딩화면 종료
+            self.enrollmentLoadingViewController?.dismiss(animated: true, completion: nil)
+            // 결과 화면으로 넘어가기
+            self.pushToEnrollmentResultViewController()
+        })
+        
     }
     
 }
