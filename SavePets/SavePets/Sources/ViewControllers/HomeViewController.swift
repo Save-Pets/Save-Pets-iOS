@@ -174,7 +174,13 @@ class HomeViewController: UIViewController {
         let imagePicker = ImagePickerController()
 
         presentImagePicker(imagePicker, select: { (asset) in
-            self.noseImageDict[asset] = self.getAssetImage(asset: asset)
+            DispatchQueue.global().async {
+                if let selectedImage = self.getAssetImage(asset: asset) {
+                    self.noseImageDict[asset] = selectedImage
+                } else {
+                    self.noseImageDict[asset] = UIImage()
+                }
+            }
         }, deselect: { (asset) in
             self.noseImageDict.removeValue(forKey: asset)
         }, cancel: { (assets) in
