@@ -1,0 +1,24 @@
+PODS:
+  - BSImagePicker (3.3.1)
+  - IQKeyboardManagerSwift (6.5.6)
+  - Presentr (1.9)
+
+DEPENDENCIES:
+  - BSImagePicker (~> 3.1)
+  - IQKeyboardManagerSwift
+  - Presentr
+
+SPEC REPOS:
+  trunk:
+    - BSImagePicker
+    - IQKeyboardManagerSwift
+    - Presentr
+
+SPEC CHECKSUMS:
+  BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+
+PODFILE CHECKSUM: 3417dad4a1d408ca3e16f058b7fa7649f4ced4de
+
+COCOAPODS: 1.10.1
