@@ -40,6 +40,7 @@ class NoseSelectionViewController: UIViewController {
     }
     var noseImageList: [UIImage] = []
     var noseImageViewDict: [Int: ImageInfo] = [:]
+    private var workItem: DispatchWorkItem?
     private var selectedImageIndex: Int = enrollStartIndex
     private var imagePicker: UIImagePickerController?
     private var searchLoadingViewController: SearchLoadingViewController?
@@ -244,6 +245,7 @@ class NoseSelectionViewController: UIViewController {
         
         self.searchLoadingViewController = searchLoadingViewController
         
+        searchLoadingViewController.workItem = self.workItem
         searchLoadingViewController.modalPresentationStyle = .fullScreen
         
         present(searchLoadingViewController, animated: true, completion: nil)
@@ -269,16 +271,20 @@ class NoseSelectionViewController: UIViewController {
             self.pushToDogProfileViewController()
         case .searching:
             print("요청 API 보내고 로딩 VC 보여주기")
-            // 로딩화면 띄우기
-            self.presentSearchLoadingViewController()
             
-            // TODO: - 서버로 등록 API 요청 보내기
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
+            self.workItem = DispatchWorkItem {
                 // 로딩화면 종료
                 self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
                 // 결과 화면으로 넘어가기
                 self.pushToSearchResultViewController()
-            })
+            }
+            
+            // 로딩화면 띄우기
+            self.presentSearchLoadingViewController()
+            
+            // TODO: - 서버로 등록 API 요청 보내기
+            guard let safeWorkItem = workItem else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: safeWorkItem)
         }
     }
     
