@@ -17,6 +17,7 @@ class SearchLoadingViewController: UIViewController {
     
     // MARK: - Variables
     
+    weak var workItem: DispatchWorkItem?
     private var queuePlayer: AVQueuePlayer?
     private var playerLooper: AVPlayerLooper?
     private var playerLayer: AVPlayerLayer?
@@ -76,6 +77,7 @@ class SearchLoadingViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTouchUp(_ sender: UIButton) {
+        self.workItem?.cancel()
         self.dismiss(animated: true, completion: nil)
     }
 }
