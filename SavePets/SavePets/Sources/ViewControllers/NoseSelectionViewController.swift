@@ -42,6 +42,7 @@ class NoseSelectionViewController: UIViewController {
     var noseImageViewDict: [Int: ImageInfo] = [:]
     private var selectedImageIndex: Int = enrollStartIndex
     private var imagePicker: UIImagePickerController?
+    private var searchLoadingViewController: SearchLoadingViewController?
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
@@ -235,6 +236,29 @@ class NoseSelectionViewController: UIViewController {
         self.navigationController?.pushViewController(dogProfileViewController, animated: true)
     }
     
+    private func presentSearchLoadingViewController() {
+        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
+        guard let searchLoadingViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.searchLoadingViewController) as? SearchLoadingViewController else {
+            return
+        }
+        
+        self.searchLoadingViewController = searchLoadingViewController
+        
+        searchLoadingViewController.modalPresentationStyle = .fullScreen
+        
+        present(searchLoadingViewController, animated: true, completion: nil)
+    }
+    
+    private func pushToSearchResultViewController() {
+        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
+        guard let searchResultViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.searchResultViewController) as? SearchResultViewController else {
+            return
+        }
+        
+        self.navigationController?.pushViewController(searchResultViewController, animated: true)
+    }
+    
+    
     @IBAction func photoChangeButtonTouchUp(_ sender: UIButton) {
         self.presentImagePickerViewController()
     }
@@ -245,6 +269,16 @@ class NoseSelectionViewController: UIViewController {
             self.pushToDogProfileViewController()
         case .searching:
             print("요청 API 보내고 로딩 VC 보여주기")
+            // 로딩화면 띄우기
+            self.presentSearchLoadingViewController()
+            
+            // TODO: - 서버로 등록 API 요청 보내기
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
+                // 로딩화면 종료
+                self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
+                // 결과 화면으로 넘어가기
+                self.pushToSearchResultViewController()
+            })
         }
     }
     
