@@ -9,21 +9,40 @@ import UIKit
 
 class SearchResultViewController: UIViewController {
 
+    // IBOutlets
+    
+    @IBOutlet weak var dogImageView: UIImageView!
+    @IBOutlet weak var enrollmentNumberLabel: UILabel!
+    @IBOutlet weak var ownerLabel: UILabel!
+    @IBOutlet weak var ownerPhoneNumberLabel: UILabel!
+    @IBOutlet weak var ownerEmailLabel: UILabel!
+    @IBOutlet weak var homeButton: UIButton!
+    @IBOutlet weak var coincidenceRateLabel: UILabel!
+    
+    // View Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.initializeSearchResultViewController()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    // Functions
+    
+    private func initializeSearchResultViewController() {
+        self.dogImageView.roundUp(radius: 12)
+        self.homeButton.roundUp(radius: 12)
     }
-    */
-
+    
+    private func popToHomeViewController() {
+        guard let homeViewController = self.navigationController?.viewControllers.filter({ $0 is HomeViewController}).first as? HomeViewController else {
+            return
+        }
+        
+        self.navigationController?.popToViewController(homeViewController, animated: true)
+    }
+    
+    @IBAction func homeButtonTouchUp(_ sender: UIButton) {
+        self.popToHomeViewController()
+    }
 }
