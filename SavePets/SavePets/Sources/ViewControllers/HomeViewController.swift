@@ -150,14 +150,14 @@ class HomeViewController: UIViewController {
         let limitNum = usage == .enrollment ? 5 : 1
         let title = "\(keyword) 알림"
         let message = "사진이 \(selectedImageNum)장 선택되었습니다\n\(keyword) 위해서는 \(limitNum)장의 사진을 선택해주세요"
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "선택하기", style: UIAlertAction.Style.default, handler: { _ in
+        alertViewController.addAction(UIAlertAction(title: "선택하기", style: UIAlertAction.Style.default, handler: { _ in
             self.pickNoseImages(usage: usage)
         }))
-        alert.addAction(UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil))
+        alertViewController.addAction(UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil))
 
-        self.present(alert, animated: true, completion: nil)
+        self.present(alertViewController, animated: true, completion: nil)
     }
     
     @IBAction func enrollButtonTouchUp(_ sender: UIButton) {
