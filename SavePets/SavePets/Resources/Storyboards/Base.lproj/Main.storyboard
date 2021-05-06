@@ -338,8 +338,9 @@
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_dog" translatesAutoresizingMaskIntoConstraints="NO" id="uLH-1P-LGm" userLabel="Dog Image View">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uLH-1P-LGm" userLabel="Dog Image View">
                                                 <rect key="frame" x="50" y="91" width="314" height="314"/>
+                                                <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="uLH-1P-LGm" secondAttribute="height" multiplier="1:1" id="aRN-0L-MzZ"/>
                                                 </constraints>
@@ -680,8 +681,9 @@
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_dog" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-OG-etx" userLabel="Dog Image View">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-OG-etx" userLabel="Dog Image View">
                                                 <rect key="frame" x="50" y="91" width="314" height="314"/>
+                                                <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Lzc-OG-etx" secondAttribute="height" multiplier="1:1" id="n4t-FD-Rtt"/>
                                                 </constraints>
@@ -983,17 +985,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_dog" translatesAutoresizingMaskIntoConstraints="NO" id="Qsg-cZ-XYL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main" translatesAutoresizingMaskIntoConstraints="NO" id="Qsg-cZ-XYL">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAVE PETS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALh-sf-dFa" userLabel="Title label">
-                                <rect key="frame" x="75" y="74" width="264.5" height="60"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Wyf-dp-JFh">
-                                <rect key="frame" x="50" y="732" width="314" height="115"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8X-lT-fXI" userLabel="Title View">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="185.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAVE PETS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALh-sf-dFa" userLabel="Title label">
+                                        <rect key="frame" x="75" y="64" width="264.5" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
+                                        <color key="textColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신의 강아지를 지켜줄 비문 인식 시스템" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCV-jp-euX" userLabel="Info label">
+                                        <rect key="frame" x="65" y="134" width="284.5" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="HCV-jp-euX" firstAttribute="top" secondItem="ALh-sf-dFa" secondAttribute="bottom" constant="10" id="6LC-eL-7wV"/>
+                                    <constraint firstItem="HCV-jp-euX" firstAttribute="centerX" secondItem="ALh-sf-dFa" secondAttribute="centerX" id="PoQ-Qw-vaY"/>
+                                    <constraint firstAttribute="bottom" secondItem="HCV-jp-euX" secondAttribute="bottom" constant="30" id="f8v-sk-3K1"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wyf-dp-JFh">
+                                <rect key="frame" x="50" y="737" width="314" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLl-iU-PcY">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
@@ -1003,21 +1021,21 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <state key="normal" title="등록하기">
-                                            <color key="titleColor" name="AccentColor"/>
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="enrollButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zKU-pc-mvR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGP-mu-ahF">
-                                        <rect key="frame" x="0.0" y="65" width="314" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="314" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="AA1-IF-w2P"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <state key="normal" title="조회하기">
-                                            <color key="titleColor" name="AccentColor"/>
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="searchButtonTouchUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kJa-Su-JCh"/>
@@ -1025,27 +1043,20 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당신의 강아지를 지켜줄 비문 인식 시스템" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCV-jp-euX" userLabel="Info label">
-                                <rect key="frame" x="64" y="149" width="286.5" height="21.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="ALh-sf-dFa" secondAttribute="top" constant="-30" id="0i0-Ly-OWb"/>
-                            <constraint firstItem="ALh-sf-dFa" firstAttribute="centerX" secondItem="Qsg-cZ-XYL" secondAttribute="centerX" id="DBY-kV-z3R"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HCV-jp-euX" secondAttribute="trailing" symbolic="YES" id="Hsd-0A-hoW"/>
-                            <constraint firstItem="HCV-jp-euX" firstAttribute="top" secondItem="ALh-sf-dFa" secondAttribute="bottom" constant="15" id="JqO-up-C1Q"/>
+                            <constraint firstItem="o8X-lT-fXI" firstAttribute="leading" secondItem="Qsg-cZ-XYL" secondAttribute="leading" id="Dqe-UU-5Fz"/>
+                            <constraint firstItem="o8X-lT-fXI" firstAttribute="top" secondItem="Qsg-cZ-XYL" secondAttribute="top" id="KfW-Nx-BRt"/>
+                            <constraint firstItem="ALh-sf-dFa" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="MVp-MC-kKu"/>
                             <constraint firstAttribute="bottom" secondItem="Qsg-cZ-XYL" secondAttribute="bottom" id="PdG-S2-IZE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Wyf-dp-JFh" secondAttribute="bottom" constant="15" id="Q0V-J0-Z6t"/>
+                            <constraint firstItem="o8X-lT-fXI" firstAttribute="trailing" secondItem="Qsg-cZ-XYL" secondAttribute="trailing" id="T8U-YD-Wi6"/>
                             <constraint firstItem="Qsg-cZ-XYL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Tbs-IZ-C1K"/>
+                            <constraint firstItem="ALh-sf-dFa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="UNQ-3k-v2J"/>
                             <constraint firstItem="Wyf-dp-JFh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="cvw-2z-yoV"/>
                             <constraint firstAttribute="trailing" secondItem="Qsg-cZ-XYL" secondAttribute="trailing" id="jcR-AE-1Kd"/>
                             <constraint firstItem="Qsg-cZ-XYL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oFM-NK-0Vu"/>
-                            <constraint firstItem="HCV-jp-euX" firstAttribute="centerX" secondItem="ALh-sf-dFa" secondAttribute="centerX" id="r5Y-9h-KPK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ALh-sf-dFa" secondAttribute="trailing" symbolic="YES" id="wNQ-XA-A4y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wyf-dp-JFh" secondAttribute="trailing" constant="50" id="yuA-IP-stO"/>
                         </constraints>
                     </view>
@@ -1058,7 +1069,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="432" y="133"/>
+            <point key="canvasLocation" x="431.8840579710145" y="132.58928571428572"/>
         </scene>
         <!--Nose Selection View Controller-->
         <scene sceneID="7kV-dW-lA6">
@@ -1072,7 +1083,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Git-LI-592">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="780.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="775.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비문 등록/조회하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bL-Yx-5ga">
                                                 <rect key="frame" x="35" y="25" width="223.5" height="36"/>
@@ -1085,8 +1096,9 @@
                                                 <color key="textColor" name="AccentColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_nose" translatesAutoresizingMaskIntoConstraints="NO" id="lD5-Ke-l3U" userLabel="Nose Image View">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lD5-Ke-l3U" userLabel="Nose Image View">
                                                 <rect key="frame" x="50" y="143" width="314" height="314"/>
+                                                <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lD5-Ke-l3U" secondAttribute="height" multiplier="1:1" id="Cw4-pB-uT5"/>
                                                 </constraints>
@@ -1148,8 +1160,8 @@
                                                     </imageView>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-y0-3d3" userLabel="Button Stack View">
-                                                <rect key="frame" x="50" y="615.5" width="314" height="115"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-y0-3d3" userLabel="Button Stack View">
+                                                <rect key="frame" x="50" y="615.5" width="314" height="110"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxj-R0-7uf">
                                                         <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
@@ -1166,7 +1178,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fh-cD-2nI">
-                                                        <rect key="frame" x="0.0" y="65" width="314" height="50"/>
+                                                        <rect key="frame" x="0.0" y="60" width="314" height="50"/>
                                                         <color key="backgroundColor" name="AccentColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="Wzv-wH-vBM"/>
@@ -1328,8 +1340,8 @@
                                     </imageView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3Ai-Pa-gO1" userLabel="Button Stack View">
-                                <rect key="frame" x="50" y="732" width="314" height="115"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Ai-Pa-gO1" userLabel="Button Stack View">
+                                <rect key="frame" x="50" y="737" width="314" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GA6-ZI-39x">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
@@ -1343,7 +1355,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdW-Uz-6dF">
-                                        <rect key="frame" x="0.0" y="65" width="314" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="314" height="50"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="JbF-xz-LhX"/>
@@ -1382,8 +1394,7 @@
     </scenes>
     <resources>
         <image name="loading" width="646" height="1210"/>
-        <image name="main_dog" width="428" height="631"/>
-        <image name="main_nose" width="434" height="391"/>
+        <image name="main" width="450" height="814"/>
         <image name="profileIcnPhoto" width="36" height="36"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.57800000905990601" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
