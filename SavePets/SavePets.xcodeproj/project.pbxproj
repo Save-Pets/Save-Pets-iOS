@@ -18,6 +18,7 @@
 		1C7A2FC12622C840008370DF /* SavePetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FC02622C840008370DF /* SavePetsTests.swift */; };
 		1C7A2FCC2622C840008370DF /* SavePetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FCB2622C840008370DF /* SavePetsUITests.swift */; };
 		1C7E7ECC264438D30006636A /* main_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C7E7ECB264438D30006636A /* main_video.mp4 */; };
+		1C7E7ECF26451C1A0006636A /* DogNoseDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1C7E7ECE26451C1A0006636A /* DogNoseDetector.mlmodel */; };
 		1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */; };
 		1C8CC28B263F262D00DD9D1E /* loading_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */; };
 		1C8CC28D263F2EC500DD9D1E /* NoseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC28C263F2EC500DD9D1E /* NoseSelectionViewController.swift */; };
@@ -68,6 +69,7 @@
 		1C7A2FCB2622C840008370DF /* SavePetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePetsUITests.swift; sourceTree = "<group>"; };
 		1C7A2FCD2622C840008370DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C7E7ECB264438D30006636A /* main_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = main_video.mp4; sourceTree = "<group>"; };
+		1C7E7ECE26451C1A0006636A /* DogNoseDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogNoseDetector.mlmodel; sourceTree = "<group>"; };
 		1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading_video.mp4; sourceTree = "<group>"; };
 		1C8CC28C263F2EC500DD9D1E /* NoseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoseSelectionViewController.swift; sourceTree = "<group>"; };
@@ -166,11 +168,19 @@
 			path = SavePetsUITests;
 			sourceTree = "<group>";
 		};
+		1C7E7ECD26451A1E0006636A /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = APIServices;
+			sourceTree = "<group>";
+		};
 		1CD745002632999A00A7FCE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				1C7E7ECB264438D30006636A /* main_video.mp4 */,
 				1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */,
+				1C7E7ECE26451C1A0006636A /* DogNoseDetector.mlmodel */,
 				1C7A2FB72622C83F008370DF /* Info.plist */,
 				1C7A2FB22622C83F008370DF /* Assets.xcassets */,
 				1CD74503263299C900A7FCE2 /* Storyboards */,
@@ -184,6 +194,7 @@
 			children = (
 				1C7A2FA92622C83D008370DF /* AppDelegate.swift */,
 				1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */,
+				1C7E7ECD26451A1E0006636A /* APIServices */,
 				1CD74504263299FA00A7FCE2 /* Models */,
 				1CD7450926329A6D00A7FCE2 /* ViewControllers */,
 				1CD7450826329A6700A7FCE2 /* Views */,
@@ -524,6 +535,7 @@
 				1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */,
 				1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */,
 				1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */,
+				1C7E7ECF26451C1A0006636A /* DogNoseDetector.mlmodel in Sources */,
 				1CF09296264133B90026C261 /* DogProfileViewController.swift in Sources */,
 				1C8CC291263F2EEE00DD9D1E /* Constants.swift in Sources */,
 				1C8CC28D263F2EC500DD9D1E /* NoseSelectionViewController.swift in Sources */,
@@ -707,6 +719,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D976453BE126B709F4FC5792 /* Pods-SavePets.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -729,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A3150B258590DF2C20E751F8 /* Pods-SavePets.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -751,7 +765,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2F5F5D2E26468562AC94C039 /* Pods-SavePetsTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3885XCJRT2;
@@ -774,7 +788,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE04B68E254CADDEF9BABA98 /* Pods-SavePetsTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3885XCJRT2;
@@ -797,7 +811,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D724EF0EC21179DEAB2F0847 /* Pods-SavePets-SavePetsUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3885XCJRT2;
 				INFOPLIST_FILE = SavePetsUITests/Info.plist;
@@ -818,7 +832,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F8D7EEC54FADB96983051A1F /* Pods-SavePets-SavePetsUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3885XCJRT2;
 				INFOPLIST_FILE = SavePetsUITests/Info.plist;
