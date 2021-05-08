@@ -1083,7 +1083,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Git-LI-592">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="775.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="785.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비문 등록/조회하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bL-Yx-5ga">
                                                 <rect key="frame" x="35" y="25" width="223.5" height="36"/>
@@ -1091,28 +1091,28 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1X-2V-qWh">
-                                                <rect key="frame" x="182.5" y="91" width="49.5" height="42"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
+                                                <rect key="frame" x="182" y="91" width="50.5" height="42"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                                 <color key="textColor" name="AccentColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lD5-Ke-l3U" userLabel="Nose Image View">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lD5-Ke-l3U" userLabel="Nose Image View">
                                                 <rect key="frame" x="50" y="143" width="314" height="314"/>
                                                 <color key="backgroundColor" name="AccentColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lD5-Ke-l3U" secondAttribute="height" multiplier="1:1" id="Cw4-pB-uT5"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코가 제대로 인식 되지 않았습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9y6-da-qeb" userLabel="Message Label">
-                                                <rect key="frame" x="102" y="467" width="210" height="19.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려견의 코를 찾을 수 없습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9y6-da-qeb" userLabel="Message Label">
+                                                <rect key="frame" x="109" y="477" width="196" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="3pE-EB-5Dz" userLabel="Nose Stack View">
-                                                <rect key="frame" x="3" y="506.5" width="408" height="79"/>
+                                                <rect key="frame" x="3" y="516.5" width="408" height="79"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uhZ-p1-Mn7">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uhZ-p1-Mn7">
                                                         <rect key="frame" x="0.0" y="0.0" width="79" height="79"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
@@ -1122,7 +1122,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="Hgq-XB-mUC" appends="YES" id="HM7-eC-wQq"/>
                                                         </connections>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mr3-go-KWo" userLabel="Nose1 Image View">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mr3-go-KWo" userLabel="Nose1 Image View">
                                                         <rect key="frame" x="82" y="0.0" width="79.5" height="79"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Mr3-go-KWo" secondAttribute="height" multiplier="1:1" id="9Ic-qJ-rrk"/>
@@ -1131,7 +1131,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="ke1-ln-S7h" appends="YES" id="ykb-Yq-432"/>
                                                         </connections>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mf6-0Z-JXf">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mf6-0Z-JXf">
                                                         <rect key="frame" x="164.5" y="0.0" width="79" height="79"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Mf6-0Z-JXf" secondAttribute="height" multiplier="1:1" id="dNc-B4-chF"/>
@@ -1140,7 +1140,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="G1y-b5-vV2" appends="YES" id="V1V-hL-QNf"/>
                                                         </connections>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mG1-UO-dcX">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mG1-UO-dcX">
                                                         <rect key="frame" x="246.5" y="0.0" width="79.5" height="79"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="mG1-UO-dcX" secondAttribute="height" multiplier="1:1" id="bC5-cI-JSQ"/>
@@ -1149,7 +1149,7 @@
                                                             <outletCollection property="gestureRecognizers" destination="ix3-wW-lfU" appends="YES" id="CI9-0W-tSL"/>
                                                         </connections>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xpR-2i-vqA">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xpR-2i-vqA">
                                                         <rect key="frame" x="329" y="0.0" width="79" height="79"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="xpR-2i-vqA" secondAttribute="height" multiplier="1:1" id="Id4-qb-tsd"/>
@@ -1161,7 +1161,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-y0-3d3" userLabel="Button Stack View">
-                                                <rect key="frame" x="50" y="615.5" width="314" height="110"/>
+                                                <rect key="frame" x="50" y="625.5" width="314" height="110"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxj-R0-7uf">
                                                         <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
@@ -1197,7 +1197,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="lD5-Ke-l3U" secondAttribute="trailing" constant="50" id="8lw-Rn-cwD"/>
-                                            <constraint firstItem="9y6-da-qeb" firstAttribute="top" secondItem="lD5-Ke-l3U" secondAttribute="bottom" constant="10" id="9Q6-Ez-8i5"/>
+                                            <constraint firstItem="9y6-da-qeb" firstAttribute="top" secondItem="lD5-Ke-l3U" secondAttribute="bottom" constant="20" id="9Q6-Ez-8i5"/>
                                             <constraint firstItem="8bL-Yx-5ga" firstAttribute="top" secondItem="Git-LI-592" secondAttribute="top" constant="25" id="D7H-71-bW5"/>
                                             <constraint firstAttribute="bottom" secondItem="qd3-y0-3d3" secondAttribute="bottom" constant="50" id="EUR-Lj-mv4"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8bL-Yx-5ga" secondAttribute="trailing" constant="155.5" id="FWu-6A-xpa"/>
