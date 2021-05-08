@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreML
+import Vision
 
 enum SavePetsUsage {
     case enrollment, searching
@@ -14,7 +16,7 @@ enum SavePetsUsage {
 typealias ImageInfo = (imageView: UIImageView, isVerified: Bool, usage: Bool)
 
 class NoseSelectionViewController: UIViewController {
-
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -44,15 +46,8 @@ class NoseSelectionViewController: UIViewController {
     private var selectedImageIndex: Int = enrollStartIndex
     private var imagePicker: UIImagePickerController?
     private var searchLoadingViewController: SearchLoadingViewController?
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = false
-        activityIndicator.style = UIActivityIndicatorView.Style.medium
-        activityIndicator.startAnimating()
-        return activityIndicator
-    }()
+    private var detectionOverlay: CALayer?
+    private var requests = [VNRequest]()
     
     // MARK: - Life Cycles
     
@@ -64,13 +59,19 @@ class NoseSelectionViewController: UIViewController {
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     // MARK: - Functions
     
     private func initializeNoseSelectionViewController() {
+        
+        self.setupVision()
         self.mainNoseImageView.roundUp(radius: 15)
         self.confirmButton.roundUp(radius: 12)
         self.disableConfirmButton()
-        self.messageLabel.isHidden = true
+        self.messageLabel.text = ""
         
         self.noseImageViewDict = [
             0: (imageView: self.nose0ImageView, isVerified: false, usage: false),
@@ -92,19 +93,23 @@ class NoseSelectionViewController: UIViewController {
             self.confirmButton.setTitle("조회하기", for: .normal)
             self.noseImageViewDict[2]?.usage = true
         }
-        
-        for (index, image) in noseImageList.enumerated() {
-            if noseImageViewDict[index]?.usage == true {
-                noseImageViewDict[index]?.imageView.roundUp(radius: 12)
-                self.updateNoseImagesAndButton(index: index, image: image)
-            } else {
-                noseImageViewDict[index]?.imageView.isUserInteractionEnabled = false
+        DispatchQueue.main.async {
+            self.setupLayers()
+            for (index, image) in self.noseImageList.reversed().enumerated() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds((index + 1) * 300)) {
+                    let newIndex = (self.noseImageList.count - 1) - index
+                    if self.noseImageViewDict[newIndex]?.usage == true {
+                        self.updateSelectedIndex(currentIndex: newIndex)
+                        self.noseImageViewDict[newIndex]?.imageView.isUserInteractionEnabled = true
+                        self.noseImageViewDict[newIndex]?.imageView.roundUp(radius: 12)
+                        self.updateNoseImages(index: newIndex, image: image)
+                        self.verifyImage(index: newIndex)
+                    }
+                }
             }
+            self.attachImageBorder(currentIndex: self.selectedImageIndex)
+            self.updateIndicatorLabel(currentIndex: self.selectedImageIndex)
         }
-        self.updateConfirmButton()
-        self.updateNoseImagesAndButton(index: self.selectedImageIndex, image: self.noseImageList[self.selectedImageIndex])
-        self.attachImageBorder(index: self.selectedImageIndex)
-        self.updateIndicatorLabel(currentIndex: self.selectedImageIndex)
     }
     
     private func initializeImagePickerView() {
@@ -114,38 +119,151 @@ class NoseSelectionViewController: UIViewController {
         self.imagePicker?.delegate = self
     }
     
-    private func verifyImage(index: Int) -> Bool {
+    private func verifyImage(index: Int) {
+        guard let ciImage = CIImage(image: self.noseImageList[index]) else { return }
+        self.detectDogNose(image: ciImage)
+    }
+    
+    private func updateDarkLayerOnImage(index: Int) {
+        if let isVerified = self.noseImageViewDict[index]?.isVerified {
+            if isVerified {
+                self.detachDarkLayerOnImage(index: index)
+            } else {
+                self.attachDarkLayerOnImage(index: index)
+            }
+        }
+    }
+    
+    private func setupLayers() {
+        self.detectionOverlay = CALayer()
+        self.detectionOverlay?.bounds = CGRect(x: 0.0,
+                                               y: 0.0,
+                                               width: self.mainNoseImageView.frame.size.width,
+                                               height: self.mainNoseImageView.frame.size.height)
+        self.detectionOverlay?.position = CGPoint(x: self.mainNoseImageView.bounds.midX, y: self.mainNoseImageView.bounds.midY)
+        if let overlay = self.detectionOverlay {
+            self.mainNoseImageView.layer.addSublayer(overlay)
+        }
+    }
+    
+    @discardableResult
+    private func setupVision() -> NSError? {
+        let error: NSError! = nil
+        guard let modelURL = Bundle.main.url(forResource: "DogNoseDetector", withExtension: "mlmodelc") else {
+            return NSError(domain: "NoseSelectionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "모델 파일이 존재하지 않습니다"])
+        }
+        do {
+            let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
+            let request = VNCoreMLRequest(model: visionModel, completionHandler: self.handleResults(request: error:))
+            request.imageCropAndScaleOption = .scaleFill
+            
+            self.requests = [request]
+        } catch let error as NSError {
+            print("모델을 불러오는 과정에서 오류가 발생했습니다: \(error)")
+        }
+        return error
+    }
+    
+    private func handleResults(request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            if let results = request.results {
+                self.drawVisionRequestResults(results)
+            }
+        }
+    }
+    
+    private func detectDogNose(image: CIImage) {
+        let imageRequestHandler = VNImageRequestHandler(ciImage: image, orientation: .up, options:[:])
+        do {
+            try imageRequestHandler.perform(self.requests)
+        } catch {
+            print(error)
+        }
         
-        self.attachActivityIndicator()
-        
-        // TODO: - CoreML로 이미지 체크해서 imageView에 뿌려주기
-        DispatchQueue.global().async {
-            sleep(3)
-            DispatchQueue.main.async {
-                // mainImageView 이미지에 계산결과 뿌려주기
+    }
+    
+    private func drawVisionRequestResults(_ results: [Any]) {
+        self.detectionOverlay?.sublayers = nil
+        var shapeLayers = [CALayer]()
+        var isSatisfiedSizeOfNose = false
+        var noseNumber = 0
+        var nostrilsNumber = 0
+        for observation in results where observation is VNRecognizedObjectObservation {
+            guard let objectObservation = observation as? VNRecognizedObjectObservation else {
+                continue
+            }
+            
+            // 제일 확률이 높은 라벨을 고른다
+            let topLabelObservation = objectObservation.labels[0]
+            let topLabelObservationBoundingBoxes = objectObservation.boundingBox
+            // let topLabelObservationConfidence = topLabelObservation.confidence
+            let topLabelObservationLabel = topLabelObservation.identifier
+            
+            let objectBounds = VNImageRectForNormalizedRect(topLabelObservationBoundingBoxes, Int(self.mainNoseImageView.bounds.width), Int(self.mainNoseImageView.bounds.height))
+            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
+            
+            if topLabelObservationLabel == "nose" {
+                noseNumber += 1
+                if topLabelObservationBoundingBoxes.width >= 0.6 && topLabelObservationBoundingBoxes.height >= 0.6 {
+                    isSatisfiedSizeOfNose = true
+                    shapeLayers.append(shapeLayer)
+                }
+            } else if topLabelObservationLabel == "nostrils" {
+                nostrilsNumber += 1
             }
         }
         
-        self.detachActivityIndicator()
+        if noseNumber == 1 && nostrilsNumber == 2 && isSatisfiedSizeOfNose {
+            self.showOKMessage(message: "통과되었습니다")
+            for shapeLayer in shapeLayers {
+                self.detectionOverlay?.addSublayer(shapeLayer)
+            }
+            self.noseImageViewDict[self.selectedImageIndex]?.isVerified = true
+            self.detachDarkLayerOnImage(index: self.selectedImageIndex)
+        } else {
+            if noseNumber == 1 && nostrilsNumber == 2 {
+                self.showAlertMessage(message: "반려견 코의 크기가 충분히 크지 않습니다")
+            } else if noseNumber == 0 || nostrilsNumber == 0 {
+                self.showAlertMessage(message: "반려견의 코를 찾을 수 없습니다")
+            } else {
+                self.showAlertMessage(message: "반려견의 코가 조건에 맞지 않습니다")
+            }
+            self.noseImageViewDict[self.selectedImageIndex]?.isVerified = false
+            self.attachDarkLayerOnImage(index: self.selectedImageIndex)
+        }
         
-        return true
+        self.updateConfirmButton()
+    }
+    
+    private func showAlertMessage(message: String) {
+        self.messageLabel.textColor = UIColor.darkGray
+        self.messageLabel.text = message
+    }
+    
+    private func showOKMessage(message: String) {
+        self.messageLabel.textColor = UIColor.systemOrange
+        self.messageLabel.text = message
+    }
+    
+    private func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
+        let shapeLayer = CALayer()
+        shapeLayer.bounds = bounds
+        shapeLayer.borderColor = UIColor.systemOrange.cgColor
+        shapeLayer.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.3).cgColor
+        shapeLayer.borderWidth = 2
+        shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        shapeLayer.cornerRadius = 1
+        return shapeLayer
     }
     
     private func updateConfirmButton() {
-        var isVerified = true
-        switch self.savePetsUsage {
-        case .enrollment:
-            for imageView in self.noseImageViewDict.values {
-                isVerified = isVerified && imageView.isVerified
+        var totalIsVerified = true
+        for index in 0...4 where self.noseImageViewDict[index]?.usage == true {
+            if let isVerified = self.noseImageViewDict[index]?.isVerified {
+                totalIsVerified = totalIsVerified && isVerified
             }
-        case .searching:
-            guard let unwrappedIsVerified = self.noseImageViewDict[self.selectedImageIndex]?.isVerified else {
-                return
-            }
-            isVerified = unwrappedIsVerified
         }
-        
-        isVerified ? self.enableConfirmButton() : self.disableConfirmButton()
+        totalIsVerified ? self.enableConfirmButton() : self.disableConfirmButton()
     }
     
     private func enableConfirmButton() {
@@ -158,12 +276,12 @@ class NoseSelectionViewController: UIViewController {
         self.confirmButton.backgroundColor = UIColor.lightGray
     }
     
-    private func attachImageBorder(index: Int) {
+    private func attachImageBorder(currentIndex: Int) {
         let color = UIColor.systemOrange.cgColor
-        self.noseImageViewDict[index]?.imageView.setBorder(color: color, width: 3)
+        self.noseImageViewDict[currentIndex]?.imageView.setBorder(color: color, width: 3)
     }
     
-    private func detachAllImageBorder() {
+    private func detachAllImageBorders() {
         let color = UIColor.white.cgColor
         for i in 0...4 {
             self.noseImageViewDict[i]?.imageView.setBorder(color: color, width: 0)
@@ -197,30 +315,11 @@ class NoseSelectionViewController: UIViewController {
         self.navigationItem.backButtonTitle = "뒤로가기"
     }
     
-    private func updateNoseImagesAndButton(index: Int, image: UIImage) {
-        self.mainNoseImageView.image = image
-        self.noseImageViewDict[index]?.imageView.image = image
-        self.noseImageList[index] = image
-        
-        let isVerified = self.verifyImage(index: index)
-        self.noseImageViewDict[index]?.isVerified = isVerified
-        if isVerified {
-            self.detachDarkLayerOnImage(index: index)
-        } else {
-            self.attachDarkLayerOnImage(index: index)
-        }
-        self.updateConfirmButton()
-    }
-    
-    private func attachActivityIndicator() {
-        self.view.addSubview(self.activityIndicator)
-    }
-    
-    private func detachActivityIndicator() {
-        if self.activityIndicator.isAnimating {
-            self.activityIndicator.stopAnimating()
-        }
-        self.activityIndicator.removeFromSuperview()
+    private func updateNoseImages(index: Int, image: UIImage) {
+        let croppedImage = image.crop(to: CGSize(width: 640, height: 640))
+        self.mainNoseImageView.image = croppedImage
+        self.noseImageViewDict[index]?.imageView.image = croppedImage
+        self.noseImageList[index] = croppedImage
     }
     
     private func presentImagePickerViewController() {
@@ -305,11 +404,23 @@ class NoseSelectionViewController: UIViewController {
     }
     
     private func noseTouchUp(currentIndex: Int) {
-        self.updateNoseImagesAndButton(index: currentIndex, image: self.noseImageList[currentIndex])
-        self.selectedImageIndex = currentIndex
+        // 이미지 갱신
+        self.updateNoseImages(index: currentIndex, image: self.noseImageList[currentIndex])
+        
+        // 인덱스 업데이트
+        self.updateSelectedIndex(currentIndex: currentIndex)
         self.updateIndicatorLabel(currentIndex: currentIndex)
-        self.detachAllImageBorder()
-        self.attachImageBorder(index: currentIndex)
+        
+        // 이미지 경계선 업데이트
+        self.detachAllImageBorders()
+        self.attachImageBorder(currentIndex: currentIndex)
+        
+        // 이미지 검사
+        self.verifyImage(index: currentIndex)
+    }
+    
+    private func updateSelectedIndex(currentIndex: Int) {
+        self.selectedImageIndex = currentIndex
     }
     
     private func updateIndicatorLabel(currentIndex: Int) {
@@ -332,7 +443,8 @@ extension NoseSelectionViewController: UIImagePickerControllerDelegate, UINaviga
         }
         
         guard let unwrappedPickedImage = pickedImage else { return }
-        self.updateNoseImagesAndButton(index: self.selectedImageIndex, image: unwrappedPickedImage)
+        self.updateNoseImages(index: self.selectedImageIndex, image: unwrappedPickedImage)
+        self.verifyImage(index: self.selectedImageIndex)
         self.imagePicker?.dismiss(animated: true, completion: nil)
     }
 }
