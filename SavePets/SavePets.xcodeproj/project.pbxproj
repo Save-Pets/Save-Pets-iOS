@@ -18,7 +18,8 @@
 		1C7A2FC12622C840008370DF /* SavePetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FC02622C840008370DF /* SavePetsTests.swift */; };
 		1C7A2FCC2622C840008370DF /* SavePetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FCB2622C840008370DF /* SavePetsUITests.swift */; };
 		1C7E7ECC264438D30006636A /* main_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C7E7ECB264438D30006636A /* main_video.mp4 */; };
-		1C7E7ECF26451C1A0006636A /* DogNoseDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1C7E7ECE26451C1A0006636A /* DogNoseDetector.mlmodel */; };
+		1C7E7ED1264546920006636A /* DogNoseDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1C7E7ED0264546920006636A /* DogNoseDetector.mlmodel */; };
+		1C8372A72645776800630445 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8372A62645776800630445 /* UIImage+Extension.swift */; };
 		1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */; };
 		1C8CC28B263F262D00DD9D1E /* loading_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */; };
 		1C8CC28D263F2EC500DD9D1E /* NoseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC28C263F2EC500DD9D1E /* NoseSelectionViewController.swift */; };
@@ -69,7 +70,8 @@
 		1C7A2FCB2622C840008370DF /* SavePetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePetsUITests.swift; sourceTree = "<group>"; };
 		1C7A2FCD2622C840008370DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C7E7ECB264438D30006636A /* main_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = main_video.mp4; sourceTree = "<group>"; };
-		1C7E7ECE26451C1A0006636A /* DogNoseDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogNoseDetector.mlmodel; sourceTree = "<group>"; };
+		1C7E7ED0264546920006636A /* DogNoseDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogNoseDetector.mlmodel; sourceTree = "<group>"; };
+		1C8372A62645776800630445 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading_video.mp4; sourceTree = "<group>"; };
 		1C8CC28C263F2EC500DD9D1E /* NoseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoseSelectionViewController.swift; sourceTree = "<group>"; };
@@ -178,9 +180,9 @@
 		1CD745002632999A00A7FCE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1C7E7ED0264546920006636A /* DogNoseDetector.mlmodel */,
 				1C7E7ECB264438D30006636A /* main_video.mp4 */,
 				1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */,
-				1C7E7ECE26451C1A0006636A /* DogNoseDetector.mlmodel */,
 				1C7A2FB72622C83F008370DF /* Info.plist */,
 				1C7A2FB22622C83F008370DF /* Assets.xcassets */,
 				1CD74503263299C900A7FCE2 /* Storyboards */,
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */,
+				1C8372A62645776800630445 /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -532,15 +535,16 @@
 			files = (
 				1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */,
 				1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */,
+				1C7E7ED1264546920006636A /* DogNoseDetector.mlmodel in Sources */,
 				1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */,
 				1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */,
 				1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */,
-				1C7E7ECF26451C1A0006636A /* DogNoseDetector.mlmodel in Sources */,
 				1CF09296264133B90026C261 /* DogProfileViewController.swift in Sources */,
 				1C8CC291263F2EEE00DD9D1E /* Constants.swift in Sources */,
 				1C8CC28D263F2EC500DD9D1E /* NoseSelectionViewController.swift in Sources */,
 				1C8F74C226440188005CD8F7 /* SearchResultViewController.swift in Sources */,
 				1CF0929A2641987C0026C261 /* ModalViewController.swift in Sources */,
+				1C8372A72645776800630445 /* UIImage+Extension.swift in Sources */,
 				1CF09298264133CB0026C261 /* OwnerProfileViewController.swift in Sources */,
 				1C8CC28F263F2EDB00DD9D1E /* NosePhotoShootViewController.swift in Sources */,
 				1C8F74C02644012C005CD8F7 /* SearchLoadingViewController.swift in Sources */,
