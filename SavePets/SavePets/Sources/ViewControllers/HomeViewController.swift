@@ -132,6 +132,7 @@ class HomeViewController: UIViewController {
         guard let nosePhotoShootViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.nosePhotoShootViewController) as? NosePhotoShootViewController else {
             return
         }
+        nosePhotoShootViewController.savePetsUsage = usage
         self.navigationController?.pushViewController(nosePhotoShootViewController, animated: true)
     }
     
