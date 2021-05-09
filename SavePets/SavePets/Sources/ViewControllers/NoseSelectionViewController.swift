@@ -13,7 +13,7 @@ enum SavePetsUsage {
     case enrollment, searching
 }
 
-typealias ImageInfo = (imageView: UIImageView, isVerified: Bool, usage: Bool)
+typealias ImageInfo = (imageView: UIImageView, isVerified: Bool)
 
 class NoseSelectionViewController: UIViewController {
     
@@ -27,27 +27,25 @@ class NoseSelectionViewController: UIViewController {
     @IBOutlet weak var nose2ImageView: UIImageView!
     @IBOutlet weak var nose3ImageView: UIImageView!
     @IBOutlet weak var nose4ImageView: UIImageView!
+    @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var photoChangeButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var noseStackView: UIStackView!
     
     // MARK: - Variables
-    
-    static let enrollStartIndex: Int = 0
-    static let searchStartIndex: Int = 2
-    var savePetsUsage: SavePetsUsage = .enrollment {
-        willSet(newValue) {
-            self.selectedImageIndex = newValue == .enrollment ? NoseSelectionViewController.enrollStartIndex : NoseSelectionViewController.searchStartIndex
-        }
-    }
+
+    var savePetsUsage: SavePetsUsage = .enrollment
     var noseImageList: [UIImage] = []
-    var noseImageViewDict: [Int: ImageInfo] = [:]
+    private var noseImageViewDict: [Int: ImageInfo] = [:]
     private var workItem: DispatchWorkItem?
-    private var selectedImageIndex: Int = enrollStartIndex
+    private var selectedImageIndex: Int = 0
     private var imagePicker: UIImagePickerController?
     private var searchLoadingViewController: SearchLoadingViewController?
     private var detectionOverlay: CALayer?
     private var requests = [VNRequest]()
+    private let semaphore = DispatchSemaphore(value: 1)
+    private let loadingQueue = DispatchQueue.global()
     
     // MARK: - Life Cycles
     
@@ -74,42 +72,49 @@ class NoseSelectionViewController: UIViewController {
         self.messageLabel.text = ""
         
         self.noseImageViewDict = [
-            0: (imageView: self.nose0ImageView, isVerified: false, usage: false),
-            1: (imageView: self.nose1ImageView, isVerified: false, usage: false),
-            2: (imageView: self.nose2ImageView, isVerified: false, usage: false),
-            3: (imageView: self.nose3ImageView, isVerified: false, usage: false),
-            4: (imageView: self.nose4ImageView, isVerified: false, usage: false)
+            0: (imageView: self.nose0ImageView, isVerified: false),
+            1: (imageView: self.nose1ImageView, isVerified: false),
+            2: (imageView: self.nose2ImageView, isVerified: false),
+            3: (imageView: self.nose3ImageView, isVerified: false),
+            4: (imageView: self.nose4ImageView, isVerified: false)
         ]
         
         switch savePetsUsage {
         case .enrollment:
             self.titleLabel.text = "비문 등록하기"
             self.confirmButton.setTitle("저장하기", for: .normal)
-            for i in 0...4 {
-                self.noseImageViewDict[i]?.usage = true
-            }
-        case .searching:
-            self.titleLabel.text = "비문 조회하기"
-            self.confirmButton.setTitle("조회하기", for: .normal)
-            self.noseImageViewDict[2]?.usage = true
-        }
-        DispatchQueue.main.async {
-            self.setupLayers()
             for (index, image) in self.noseImageList.reversed().enumerated() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds((index + 1) * 300)) {
-                    let newIndex = (self.noseImageList.count - 1) - index
-                    if self.noseImageViewDict[newIndex]?.usage == true {
-                        self.updateSelectedIndex(currentIndex: newIndex)
+                let newIndex = (self.noseImageList.count - 1) - index
+                self.loadingQueue.async {
+                    self.semaphore.wait()
+                    self.updateSelectedIndex(currentIndex: newIndex)
+                    DispatchQueue.main.async {
+                        self.setupLayers()
                         self.noseImageViewDict[newIndex]?.imageView.isUserInteractionEnabled = true
                         self.noseImageViewDict[newIndex]?.imageView.roundUp(radius: 12)
                         self.updateNoseImages(index: newIndex, image: image)
-                        self.verifyImage(index: newIndex)
                     }
+                    self.verifyImage(index: newIndex)
                 }
             }
             self.attachImageBorder(currentIndex: self.selectedImageIndex)
-            self.updateIndicatorLabel(currentIndex: self.selectedImageIndex)
+        case .searching:
+            self.titleLabel.text = "비문 조회하기"
+            self.confirmButton.setTitle("조회하기", for: .normal)
+            for view in self.noseStackView.arrangedSubviews {
+                view.isHidden = true
+            }
+            self.loadingQueue.async {
+                self.semaphore.wait()
+                DispatchQueue.main.async {
+                    self.setupLayers()
+                    self.updateNoseImages(index: self.selectedImageIndex, image: self.noseImageList[self.selectedImageIndex])
+                }
+                self.verifyImage(index: self.selectedImageIndex)
+            }
         }
+        
+        self.updateIndicatorLabel(currentIndex: self.selectedImageIndex)
     }
     
     private func initializeImagePickerView() {
@@ -179,7 +184,6 @@ class NoseSelectionViewController: UIViewController {
         } catch {
             print(error)
         }
-        
     }
     
     private func drawVisionRequestResults(_ results: [Any]) {
@@ -214,7 +218,7 @@ class NoseSelectionViewController: UIViewController {
         }
         
         if noseNumber == 1 && nostrilsNumber == 2 && isSatisfiedSizeOfNose {
-            self.showOKMessage(message: "통과되었습니다")
+            self.showOKMessage(message: "확인되었습니다")
             for shapeLayer in shapeLayers {
                 self.detectionOverlay?.addSublayer(shapeLayer)
             }
@@ -233,15 +237,22 @@ class NoseSelectionViewController: UIViewController {
         }
         
         self.updateConfirmButton()
+        self.semaphore.signal()
     }
     
     private func showAlertMessage(message: String) {
-        self.messageLabel.textColor = UIColor.darkGray
+        self.messageView.setBorder(color: UIColor.systemRed.cgColor, width: 1)
+        self.messageView.roundUp(radius: self.messageView.frame.size.height / 2)
+        self.messageView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.1)
+        self.messageLabel.textColor = UIColor.systemRed
         self.messageLabel.text = message
     }
     
     private func showOKMessage(message: String) {
-        self.messageLabel.textColor = UIColor.systemOrange
+        self.messageView.setBorder(color: UIColor.systemGreen.cgColor, width: 1)
+        self.messageView.roundUp(radius: self.messageView.frame.size.height / 2)
+        self.messageView.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.1)
+        self.messageLabel.textColor = UIColor.systemGreen
         self.messageLabel.text = message
     }
     
@@ -258,8 +269,15 @@ class NoseSelectionViewController: UIViewController {
     
     private func updateConfirmButton() {
         var totalIsVerified = true
-        for index in 0...4 where self.noseImageViewDict[index]?.usage == true {
-            if let isVerified = self.noseImageViewDict[index]?.isVerified {
+        switch self.savePetsUsage {
+        case .enrollment:
+            for index in 0...4 {
+                if let isVerified = self.noseImageViewDict[index]?.isVerified {
+                    totalIsVerified = totalIsVerified && isVerified
+                }
+            }
+        case .searching:
+            if let isVerified = self.noseImageViewDict[self.selectedImageIndex]?.isVerified {
                 totalIsVerified = totalIsVerified && isVerified
             }
         }
@@ -318,8 +336,8 @@ class NoseSelectionViewController: UIViewController {
     private func updateNoseImages(index: Int, image: UIImage) {
         let croppedImage = image.crop(to: CGSize(width: 640, height: 640))
         self.mainNoseImageView.image = croppedImage
-        self.noseImageViewDict[index]?.imageView.image = croppedImage
         self.noseImageList[index] = croppedImage
+        self.noseImageViewDict[index]?.imageView.image = croppedImage
     }
     
     private func presentImagePickerViewController() {
@@ -424,9 +442,8 @@ class NoseSelectionViewController: UIViewController {
     }
     
     private func updateIndicatorLabel(currentIndex: Int) {
-        let indicatorIndex = self.savePetsUsage == .searching ? 0 : currentIndex
         let totalIndex = self.savePetsUsage == .searching ? 1 : 5
-        self.indicatorLabel.text = "\(indicatorIndex + 1)/\(totalIndex)"
+        self.indicatorLabel.text = "\(currentIndex + 1)/\(totalIndex)"
     }
 }
 
