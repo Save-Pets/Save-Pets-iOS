@@ -11,6 +11,9 @@ class NosePhotoShootViewController: UIViewController {
 
     // MARK: - IBOutlets
     
+    @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var trashButton: UIButton!
+    @IBOutlet weak var indicatorLabel: UILabel!
     @IBOutlet weak var nose0ImageView: UIImageView!
     @IBOutlet weak var nose1ImageView: UIImageView!
     @IBOutlet weak var nose2ImageView: UIImageView!
@@ -18,13 +21,14 @@ class NosePhotoShootViewController: UIViewController {
     @IBOutlet weak var nose4ImageView: UIImageView!
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var noseStackView: UIStackView!
     @IBOutlet weak var confirmButton: UIButton!
     
     // MARK: - Variables
     
     var savePetsUsage: SavePetsUsage = .enrollment
-    private var selectedImageIndex: Int = 0
-    private var noseImageViewDict: [Int: ImageInfo] = [:]
+    private var selectedIndex: Int = 0
+    private var noseImageDict: [Int: ImageInfo] = [:]
     private var searchLoadingViewController: SearchLoadingViewController?
     private var workItem: DispatchWorkItem?
     
@@ -43,12 +47,12 @@ class NosePhotoShootViewController: UIViewController {
         self.disableConfirmButton()
         self.messageLabel.text = ""
         
-        self.noseImageViewDict = [
-            0: (imageView: self.nose0ImageView, isVerified: false),
-            1: (imageView: self.nose1ImageView, isVerified: false),
-            2: (imageView: self.nose2ImageView, isVerified: false),
-            3: (imageView: self.nose3ImageView, isVerified: false),
-            4: (imageView: self.nose4ImageView, isVerified: false)
+        self.noseImageDict = [
+            0: (image: UIImage(), imageView: self.nose0ImageView, isVerified: false),
+            1: (image: UIImage(), imageView: self.nose1ImageView, isVerified: false),
+            2: (image: UIImage(), imageView: self.nose2ImageView, isVerified: false),
+            3: (image: UIImage(), imageView: self.nose3ImageView, isVerified: false),
+            4: (image: UIImage(), imageView: self.nose4ImageView, isVerified: false)
         ]
         
         switch savePetsUsage {
@@ -56,12 +60,17 @@ class NosePhotoShootViewController: UIViewController {
             self.confirmButton.setTitle("저장하기", for: .normal)
         case .searching:
             self.confirmButton.setTitle("조회하기", for: .normal)
+            for view in self.noseStackView.arrangedSubviews {
+                view.isHidden = true
+            }
         }
         
         for i in 0...4 {
-            self.noseImageViewDict[i]?.imageView.roundUp(radius: 12)
-            self.noseImageViewDict[i]?.imageView.backgroundColor = UIColor.white
+            self.noseImageDict[i]?.imageView.roundUp(radius: 12)
         }
+        
+        self.updateIndicatorLabel(currentIndex: self.selectedIndex)
+        self.attachImageBorder(currentIndex: self.selectedIndex)
     }
     
     private func enableConfirmButton() {
@@ -126,7 +135,59 @@ class NosePhotoShootViewController: UIViewController {
         
         self.navigationController?.pushViewController(searchResultViewController, animated: true)
     }
-
+    
+    private func attachImageBorder(currentIndex: Int) {
+        let color = UIColor.systemOrange.cgColor
+        self.noseImageDict[currentIndex]?.imageView.setBorder(color: color, width: 3)
+    }
+    
+    private func detachAllImageBorders() {
+        let color = UIColor.white.cgColor
+        for i in 0...4 {
+            self.noseImageDict[i]?.imageView.setBorder(color: color, width: 0)
+        }
+    }
+    
+    @IBAction func trashButtonTouchUp(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func nose0TouchUp(_ sender: UITapGestureRecognizer) {
+        self.noseTouchUp(currentIndex: 0)
+    }
+    
+    @IBAction func nose1TouchUp(_ sender: UITapGestureRecognizer) {
+        self.noseTouchUp(currentIndex: 1)
+    }
+    
+    @IBAction func nose2TouchUp(_ sender: UITapGestureRecognizer) {
+        self.noseTouchUp(currentIndex: 2)
+    }
+    
+    @IBAction func nose3TouchUp(_ sender: UITapGestureRecognizer) {
+        self.noseTouchUp(currentIndex: 3)
+    }
+    
+    @IBAction func nose4TouchUp(_ sender: UITapGestureRecognizer) {
+        self.noseTouchUp(currentIndex: 4)
+    }
+    
+    private func noseTouchUp(currentIndex: Int) {
+        print(currentIndex)
+        self.detachAllImageBorders()
+        self.attachImageBorder(currentIndex: currentIndex)
+        self.updateIndicatorLabel(currentIndex: currentIndex)
+    }
+    
+    private func updateSelectedIndex(currentIndex: Int) {
+        self.selectedIndex = currentIndex
+    }
+    
+    private func updateIndicatorLabel(currentIndex: Int) {
+        let totalIndex = self.savePetsUsage == .searching ? 1 : 5
+        self.indicatorLabel.text = "\(currentIndex + 1)/\(totalIndex)"
+    }
+    
     @IBAction func confirmButtonTouchUp(_ sender: UIButton) {
         switch self.savePetsUsage {
         case .enrollment:
