@@ -118,7 +118,7 @@ class HomeViewController: UIViewController {
             noseArray = Array(self.noseImageDict.values)
         case .searching:
             noseArray = Array(repeating: UIImage(), count: 5)
-            noseArray[2] = Array(self.noseImageDict.values)[0]
+            noseArray[0] = Array(self.noseImageDict.values)[0]
         }
         
         noseSelectionViewController.savePetsUsage = usage
@@ -185,6 +185,8 @@ class HomeViewController: UIViewController {
     
     private func pickNoseImages(usage: SavePetsUsage) {
         let imagePicker = ImagePickerController()
+        imagePicker.doneButtonTitle = "선택 완료"
+        imagePicker.cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: nil, action: nil)
 
         presentImagePicker(imagePicker, select: { (asset) in
             DispatchQueue.global().async {
