@@ -229,7 +229,8 @@ class NosePhotoShootViewController: UIViewController {
     
     @discardableResult
     private func updateSelectedIndex(newIndex: Int) -> Bool {
-        if newIndex >= 5 {
+        let maxNoseNum = self.savePetsUsage == .enrollment ? 5 : 1
+        if newIndex >= maxNoseNum {
             return false
         }
         self.selectedIndex = newIndex
