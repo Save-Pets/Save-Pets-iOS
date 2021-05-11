@@ -13,7 +13,7 @@ enum SavePetsUsage {
     case enrollment, searching
 }
 
-typealias ImageInfo = (image: UIImage, imageView: UIImageView, isVerified: Bool)
+typealias ImageInfo = (imageView: UIImageView, isVerified: Bool)
 
 class NoseSelectionViewController: UIViewController {
     
@@ -72,11 +72,11 @@ class NoseSelectionViewController: UIViewController {
         self.messageLabel.text = ""
         
         self.noseImageDict = [
-            0: (image: self.noseImageList[0], imageView: self.nose0ImageView, isVerified: false),
-            1: (image: self.noseImageList[1], imageView: self.nose1ImageView, isVerified: false),
-            2: (image: self.noseImageList[2],imageView: self.nose2ImageView, isVerified: false),
-            3: (image: self.noseImageList[3],imageView: self.nose3ImageView, isVerified: false),
-            4: (image: self.noseImageList[4],imageView: self.nose4ImageView, isVerified: false)
+            0: (imageView: self.nose0ImageView, isVerified: false),
+            1: (imageView: self.nose1ImageView, isVerified: false),
+            2: (imageView: self.nose2ImageView, isVerified: false),
+            3: (imageView: self.nose3ImageView, isVerified: false),
+            4: (imageView: self.nose4ImageView, isVerified: false)
         ]
         
         switch savePetsUsage {
