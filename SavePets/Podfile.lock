@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (5.4.3)
+  - BSImagePicker (3.3.1)
+  - IQKeyboardManagerSwift (6.5.6)
+  - Presentr (1.9)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.2)
+  - BSImagePicker (~> 3.1)
+  - IQKeyboardManagerSwift
+  - Presentr
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - BSImagePicker
+    - IQKeyboardManagerSwift
+    - Presentr
+
+SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  Presentr: 7078d7eb5d1661ebeaae60c9e42a1e534de1b993
+
+PODFILE CHECKSUM: 89bc033cf6067ead6b31d3568bea42c6c6687b3b
+
+COCOAPODS: 1.10.1
