@@ -23,5 +23,6 @@ struct Constants {
         static let enrollmentResultViewController: String = "EnrollmentResultViewController"
         static let searchLoadingViewController: String = "SearchLoadingViewController"
         static let searchResultViewController: String = "SearchResultViewController"
+        static let previewViewController: String = "PreviewViewController"
     }
 }
