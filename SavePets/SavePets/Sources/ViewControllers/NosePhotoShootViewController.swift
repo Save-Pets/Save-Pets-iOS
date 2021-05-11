@@ -6,14 +6,14 @@
 //
 
 import UIKit
+import AVFoundation
+import Vision
 
 class NosePhotoShootViewController: UIViewController {
 
     // MARK: - IBOutlets
     
-    @IBOutlet weak var cameraView: UIView!
-    @IBOutlet weak var trashButton: UIButton!
-    @IBOutlet weak var indicatorLabel: UILabel!
+    @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var nose0ImageView: UIImageView!
     @IBOutlet weak var nose1ImageView: UIImageView!
     @IBOutlet weak var nose2ImageView: UIImageView!
@@ -32,12 +32,40 @@ class NosePhotoShootViewController: UIViewController {
     private var searchLoadingViewController: SearchLoadingViewController?
     private var workItem: DispatchWorkItem?
     
+    private var takePicture: Bool = false
+    private var touchImageView: Bool = false
+    private var bufferSize: CGSize = .zero
+    private var rootLayer: CALayer! = nil
+    private let session = AVCaptureSession()
+    private var previewLayer: AVCaptureVideoPreviewLayer! = nil
+    private let videoDataOutput = AVCaptureVideoDataOutput()
+    private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
+    private var detectionOverlay: CALayer! = nil
+    private var requests = [VNRequest]()
+    private let semaphore = DispatchSemaphore(value: 1)
+    
     // MARK: - Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeNosePhotoShootViewController()
         self.initializeNavigationBar()
+        self.setupAVCapture()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.rootLayer.bounds = self.previewView.layer.bounds
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.startCaptureSession()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.stopCaptureSession()
     }
     
     // MARK: - Functions
@@ -48,11 +76,11 @@ class NosePhotoShootViewController: UIViewController {
         self.messageLabel.text = ""
         
         self.noseImageDict = [
-            0: (image: UIImage(), imageView: self.nose0ImageView, isVerified: false),
-            1: (image: UIImage(), imageView: self.nose1ImageView, isVerified: false),
-            2: (image: UIImage(), imageView: self.nose2ImageView, isVerified: false),
-            3: (image: UIImage(), imageView: self.nose3ImageView, isVerified: false),
-            4: (image: UIImage(), imageView: self.nose4ImageView, isVerified: false)
+            0: (imageView: self.nose0ImageView, isVerified: false),
+            1: (imageView: self.nose1ImageView, isVerified: false),
+            2: (imageView: self.nose2ImageView, isVerified: false),
+            3: (imageView: self.nose3ImageView, isVerified: false),
+            4: (imageView: self.nose4ImageView, isVerified: false)
         ]
         
         switch savePetsUsage {
@@ -69,7 +97,6 @@ class NosePhotoShootViewController: UIViewController {
             self.noseImageDict[i]?.imageView.roundUp(radius: 12)
         }
         
-        self.updateIndicatorLabel(currentIndex: self.selectedIndex)
         self.attachImageBorder(currentIndex: self.selectedIndex)
     }
     
@@ -119,6 +146,20 @@ class NosePhotoShootViewController: UIViewController {
         present(searchLoadingViewController, animated: true, completion: nil)
     }
     
+    private func presentPreviewViewController(currentIndex: Int, image: UIImage?) {
+        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
+        guard let previewViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.previewViewController) as? PreviewViewController else {
+            return
+        }
+        self.stopCaptureSession()
+        previewViewController.previewViewControllerDelegate = self
+        previewViewController.previewImage = image
+        previewViewController.currentIndex = currentIndex
+        previewViewController.modalPresentationStyle = .automatic
+        
+        present(previewViewController, animated: true, completion: nil)
+    }
+    
     private func pushToDogProfileViewController() {
         let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
         guard let dogProfileViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.dogProfileViewController) as? DogProfileViewController else {
@@ -148,10 +189,6 @@ class NosePhotoShootViewController: UIViewController {
         }
     }
     
-    @IBAction func trashButtonTouchUp(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func nose0TouchUp(_ sender: UITapGestureRecognizer) {
         self.noseTouchUp(currentIndex: 0)
     }
@@ -173,19 +210,61 @@ class NosePhotoShootViewController: UIViewController {
     }
     
     private func noseTouchUp(currentIndex: Int) {
-        print(currentIndex)
-        self.detachAllImageBorders()
-        self.attachImageBorder(currentIndex: currentIndex)
-        self.updateIndicatorLabel(currentIndex: currentIndex)
+        self.touchImageView = true
+        self.stopCaptureSession()
+        DispatchQueue.main.async {
+            self.updateSelectedIndex(newIndex: currentIndex)
+            self.detachAllImageBorders()
+            self.attachImageBorder(currentIndex: currentIndex)
+            if self.noseImageDict[currentIndex]?.imageView.image == nil {
+                self.takePicture = false
+                self.startCaptureSession()
+            } else {
+                if let image = self.noseImageDict[currentIndex]?.imageView.image {
+                    self.presentPreviewViewController(currentIndex: currentIndex, image: image)
+                }
+            }
+        }
     }
     
-    private func updateSelectedIndex(currentIndex: Int) {
-        self.selectedIndex = currentIndex
+    @discardableResult
+    private func updateSelectedIndex(newIndex: Int) -> Bool {
+        if newIndex >= 5 {
+            return false
+        }
+        self.selectedIndex = newIndex
+        return true
     }
     
-    private func updateIndicatorLabel(currentIndex: Int) {
-        let totalIndex = self.savePetsUsage == .searching ? 1 : 5
-        self.indicatorLabel.text = "\(currentIndex + 1)/\(totalIndex)"
+    private func updatePreviewImageView(image: UIImage) {
+        let currentImageLayer = CALayer()
+        currentImageLayer.bounds = self.rootLayer.bounds
+        currentImageLayer.contents = image.cgImage
+        currentImageLayer.contentsGravity = .resizeAspectFill
+        self.previewView.layer.sublayers = nil
+        self.previewView.layer.insertSublayer(currentImageLayer, at: 0)
+    }
+    
+    private func updateNoseImages(index: Int, image: UIImage) {
+        let capturedImage = image.crop(to: CGSize(width: 640, height: 640))
+        self.noseImageDict[index]?.imageView.image = capturedImage
+    }
+    
+    private func updateConfirmButton() {
+        var totalIsVerified = true
+        switch self.savePetsUsage {
+        case .enrollment:
+            for index in 0...4 {
+                if let isVerified = self.noseImageDict[index]?.isVerified {
+                    totalIsVerified = totalIsVerified && isVerified
+                }
+            }
+        case .searching:
+            if let isVerified = self.noseImageDict[self.selectedIndex]?.isVerified {
+                totalIsVerified = totalIsVerified && isVerified
+            }
+        }
+        totalIsVerified ? self.enableConfirmButton() : self.disableConfirmButton()
     }
     
     @IBAction func confirmButtonTouchUp(_ sender: UIButton) {
@@ -209,5 +288,293 @@ class NosePhotoShootViewController: UIViewController {
             guard let safeWorkItem = workItem else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: safeWorkItem)
         }
+    }
+}
+
+// MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
+
+extension NosePhotoShootViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        
+        if !self.takePicture {
+            self.detectDogNose(pixelBuffer: pixelBuffer)
+            return
+        }
+        
+        self.semaphore.wait()
+
+        DispatchQueue.main.async {
+            
+            let ciImage = CIImage(cvImageBuffer: pixelBuffer).oriented(.right)
+            let uiImage = UIImage(ciImage: ciImage)
+            
+            self.presentPreviewViewController(currentIndex: self.selectedIndex, image: uiImage)
+            
+            if self.touchImageView {
+                return
+            }
+            
+            if !self.touchImageView {
+                self.updateSelectedIndex(newIndex: self.selectedIndex + 1)
+                self.detachAllImageBorders()
+                self.attachImageBorder(currentIndex: self.selectedIndex)
+            }
+        }
+        self.semaphore.signal()
+    }
+    
+    
+    func detectDogNose(pixelBuffer: CVImageBuffer) {
+        let exifOrientation = exifOrientationFromDeviceOrientation()
+        
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: exifOrientation, options: [:])
+        do {
+            try imageRequestHandler.perform(self.requests)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func setupInputs() {
+        var deviceInput: AVCaptureDeviceInput!
+        
+        let videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first
+        do {
+            deviceInput = try AVCaptureDeviceInput(device: videoDevice!)
+        } catch {
+            print("Could not create video device input: \(error)")
+            return
+        }
+        
+        session.beginConfiguration()
+        session.sessionPreset = .vga640x480
+        
+        guard session.canAddInput(deviceInput) else {
+            print("Could not add video device input to the session")
+            session.commitConfiguration()
+            return
+        }
+        session.addInput(deviceInput)
+        
+        do {
+            try videoDevice!.lockForConfiguration()
+            let dimensions = CMVideoFormatDescriptionGetDimensions((videoDevice?.activeFormat.formatDescription)!)
+            bufferSize.width = CGFloat(dimensions.width)
+            bufferSize.height = CGFloat(dimensions.height)
+            videoDevice!.unlockForConfiguration()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func setupOutputs() {
+        if session.canAddOutput(videoDataOutput) {
+            session.addOutput(videoDataOutput)
+            videoDataOutput.alwaysDiscardsLateVideoFrames = true
+            videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+            videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
+        } else {
+            print("Could not add video data output to the session")
+            session.commitConfiguration()
+            return
+        }
+        
+        let captureConnection = videoDataOutput.connection(with: .video)
+        captureConnection?.isEnabled = true
+
+    }
+    
+    func setupPreviewLayer() {
+        previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        rootLayer = previewView.layer
+        previewLayer.frame = rootLayer.bounds
+        rootLayer.insertSublayer(previewLayer, at: 0)
+    }
+    
+    func setupAVCapture() {
+        self.setupInputs()
+        self.setupOutputs()
+        self.setupPreviewLayer()
+        
+        self.session.commitConfiguration()
+        
+        self.setupLayers()
+        self.updateLayerGeometry()
+        self.setupVision()
+        
+        self.startCaptureSession()
+    }
+    
+    func startCaptureSession() {
+        session.startRunning()
+    }
+    
+    func stopCaptureSession() {
+        session.stopRunning()
+    }
+    
+    func teardownAVCapture() {
+        previewLayer.removeFromSuperlayer()
+        previewLayer = nil
+    }
+    
+    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+        let curDeviceOrientation = UIDevice.current.orientation
+        let exifOrientation: CGImagePropertyOrientation
+        
+        switch curDeviceOrientation {
+        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
+            exifOrientation = .left
+        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
+            exifOrientation = .upMirrored
+        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
+            exifOrientation = .down
+        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
+            exifOrientation = .up
+        default:
+            exifOrientation = .up
+        }
+        return exifOrientation
+    }
+    
+    @discardableResult
+    func setupVision() -> NSError? {
+        let error: NSError! = nil
+        
+        guard let modelURL = Bundle.main.url(forResource: "DogNoseDetector", withExtension: "mlmodelc") else {
+            return NSError(domain: "NosePhotoShootViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
+        }
+        do {
+            let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
+            let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: handleResults(request:error:))
+            self.requests = [objectRecognition]
+        } catch let error as NSError {
+            print("Model loading went wrong: \(error)")
+        }
+        
+        return error
+    }
+    
+    private func handleResults(request: VNRequest, error: Error?) {
+        DispatchQueue.main.async(execute: {
+            if let results = request.results {
+                self.drawVisionRequestResults(results)
+            }
+        })
+    }
+    
+    func drawVisionRequestResults(_ results: [Any]) {
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        detectionOverlay.sublayers = nil
+        var isSatisfiedSizeOfNose = false
+        var noseNumber = 0
+        var nostrilsNumber = 0
+        var shapeLayers = [CALayer]()
+        for observation in results where observation is VNRecognizedObjectObservation {
+            guard let objectObservation = observation as? VNRecognizedObjectObservation else {
+                continue
+            }
+            
+            let topLabelObservation = objectObservation.labels[0]
+            let topLabelObservationBoundingBoxes = objectObservation.boundingBox
+            let topLabelObservationLabel = topLabelObservation.identifier
+            let objectBounds = VNImageRectForNormalizedRect(topLabelObservationBoundingBoxes, Int(bufferSize.width), Int(bufferSize.height))
+            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
+            detectionOverlay.addSublayer(shapeLayer)
+            
+            if topLabelObservationLabel == "nose" {
+                noseNumber += 1
+                print(topLabelObservationBoundingBoxes)
+                if topLabelObservationBoundingBoxes.width >= 0.4 && topLabelObservationBoundingBoxes.height >= 0.8 {
+                    isSatisfiedSizeOfNose = true
+                    shapeLayers.append(shapeLayer)
+                }
+            } else if topLabelObservationLabel == "nostrils" {
+                nostrilsNumber += 1
+            }
+        }
+        
+        if noseNumber == 1 && nostrilsNumber == 2 && isSatisfiedSizeOfNose {
+            self.showOKMessage(message: "확인되었습니다")
+            for shapeLayer in shapeLayers {
+                self.detectionOverlay?.addSublayer(shapeLayer)
+            }
+            self.takePicture = true
+        } else {
+            if noseNumber == 1 && nostrilsNumber == 2 {
+                self.showAlertMessage(message: "반려견 코의 크기가 충분히 크지 않습니다")
+            } else if noseNumber == 0 || nostrilsNumber == 0 {
+                self.showAlertMessage(message: "반려견의 코를 찾을 수 없습니다")
+            } else {
+                self.showAlertMessage(message: "반려견의 코가 조건에 맞지 않습니다")
+            }
+            self.takePicture = false
+        }
+        
+        self.updateLayerGeometry()
+        CATransaction.commit()
+    }
+    
+    func setupLayers() {
+        detectionOverlay = CALayer()
+        detectionOverlay.bounds = CGRect(x: 0.0, y: 0.0, width: bufferSize.width, height: bufferSize.height)
+        detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
+        rootLayer.addSublayer(detectionOverlay)
+    }
+    
+    func updateLayerGeometry() {
+        let bounds = rootLayer.bounds
+        var scale: CGFloat
+        
+        let xScale: CGFloat = bounds.size.width / bufferSize.height
+        let yScale: CGFloat = bounds.size.height / bufferSize.width
+        
+        scale = fmax(xScale, yScale)
+        if scale.isInfinite {
+            scale = 1.0
+        }
+        CATransaction.begin()
+        CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+        
+        detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
+        detectionOverlay.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        CATransaction.commit()
+        
+    }
+    
+    func createRoundedRectLayerWithBounds(_ bounds: CGRect) -> CALayer {
+        let shapeLayer = CALayer()
+        shapeLayer.bounds = bounds
+        shapeLayer.borderColor = UIColor.systemOrange.cgColor
+        shapeLayer.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.3).cgColor
+        shapeLayer.borderWidth = 2
+        shapeLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        shapeLayer.cornerRadius = 1
+        return shapeLayer
+    }
+}
+
+// MARK: - PreviewViewControllerDelegate
+
+extension NosePhotoShootViewController: PreviewViewControllerDelegate {
+    func deleteButtonTouchUp(currentIndex: Int) {
+        self.noseImageDict[currentIndex]?.imageView.image = nil
+        self.noseImageDict[currentIndex]?.isVerified = false
+        self.updateConfirmButton()
+        self.takePicture = false
+        self.startCaptureSession()
+    }
+    
+    func confirmButtonTouchUp(currentIndex: Int, previewImage: UIImage?) {
+        self.noseImageDict[currentIndex]?.imageView.image = previewImage
+        self.noseImageDict[currentIndex]?.isVerified = true
+        self.updateConfirmButton()
+        self.takePicture = false
+        self.startCaptureSession()
     }
 }
