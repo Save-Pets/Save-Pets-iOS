@@ -88,8 +88,9 @@ class NosePhotoShootViewController: UIViewController {
             self.confirmButton.setTitle("저장하기", for: .normal)
         case .searching:
             self.confirmButton.setTitle("조회하기", for: .normal)
-            for view in self.noseStackView.arrangedSubviews {
-                view.isHidden = true
+            for (index, view) in self.noseStackView.arrangedSubviews.enumerated() where index != 0 {
+                view.isUserInteractionEnabled = false
+                view.backgroundColor = UIColor.clear
             }
         }
         
