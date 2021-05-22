@@ -14,14 +14,18 @@ class EnrollmentResultViewController: UIViewController {
     @IBOutlet weak var dogImageView: UIImageView!
     @IBOutlet weak var dogEnrollmentNumberLabel: UILabel!
     @IBOutlet weak var dogNameLabel: UILabel!
+    @IBOutlet weak var dogBreedLabel: UILabel!
     @IBOutlet weak var dogBirthYearLabel: UILabel!
-    @IBOutlet weak var dogGenderLabel: UILabel!
+    @IBOutlet weak var dogSexLabel: UILabel!
+    @IBOutlet weak var resultInfoLabel: UILabel!
+    @IBOutlet weak var resultInfo2Label: UILabel!
     @IBOutlet weak var homeButton: UIButton!
     
     // MARK: - Variables
     
+    var enrollmentResult: EnrollmentResult?
     
-    // View Life Cycles
+    // MARK: - View Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +33,41 @@ class EnrollmentResultViewController: UIViewController {
     }
     
     
-    // Functions
+    // MARK: - Functions
+    
+    private func initializeEnrollmentResultViewController() {
+        self.dogImageView.roundUp(radius: 12)
+        self.homeButton.roundUp(radius: 12)
+        
+        self.updateDogInfo(enrollmentNumber: self.enrollmentResult?.dogRegistNum, name: self.enrollmentResult?.dogName, breed: self.enrollmentResult?.dogBreed, birthYear: self.enrollmentResult?.dogBirthYear, sex: self.enrollmentResult?.dogSex, image: self.enrollmentResult?.dogProfile)
+        
+        guard let isSuccess = self.enrollmentResult?.isSuccess else { return }
+        if isSuccess {
+            self.resultInfoLabel.text = "등록 완료"
+            self.resultInfo2Label.text = "되었습니다"
+        } else {
+            self.resultInfoLabel.text = "이미 등록된"
+            self.resultInfo2Label.text = "반려견 입니다"
+        }
+    }
+    
+    private func updateDogInfo(enrollmentNumber: String?, name: String?, breed: String?, birthYear: String?, sex: String?, image: String?) {
+        guard let safeDogImage = image else { return }
+        guard let dogImageURL = URL(string: safeDogImage) else { return }
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: dogImageURL) {
+                DispatchQueue.main.async {
+                    self.dogImageView.image = UIImage(data: data)
+                }
+            }
+        }
+        
+        self.dogEnrollmentNumberLabel.text = enrollmentNumber
+        self.dogNameLabel.text = name
+        self.dogBreedLabel.text = breed
+        self.dogBirthYearLabel.text = birthYear
+        self.dogSexLabel.text = sex
+    }
     
     private func popToHomeViewController() {
         guard let homeViewController = self.navigationController?.viewControllers.filter({ $0 is HomeViewController}).first as? HomeViewController else {
@@ -37,11 +75,6 @@ class EnrollmentResultViewController: UIViewController {
         }
         
         self.navigationController?.popToViewController(homeViewController, animated: true)
-    }
-    
-    private func initializeEnrollmentResultViewController() {
-        self.dogImageView.roundUp(radius: 12)
-        self.homeButton.roundUp(radius: 12)
     }
     
     @IBAction func homeButtonTouchUp(_ sender: UIButton) {
