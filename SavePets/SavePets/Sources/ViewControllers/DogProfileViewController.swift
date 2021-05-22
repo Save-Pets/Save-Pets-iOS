@@ -22,6 +22,7 @@ class DogProfileViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     
     // MARK: - Variables
+    var enrollment: Enrollment?
     private var imagePicker: UIImagePickerController?
     private var profileImage: UIImage?
     private var name: String?
@@ -89,10 +90,22 @@ class DogProfileViewController: UIViewController {
     }
     
     private func pushToOwnerProfileViweController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let ownerProfileViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.ownerProfileViewController) as? OwnerProfileViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let ownerProfileViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.ownerProfileViewController) as? OwnerProfileViewController else {
             return
         }
+        
+        guard let profile = self.profileImage, let name = self.name, let breed = self.breed, let birthYear = self.birthYear, let sex = self.gender else { return }
+        
+        ownerProfileViewController.enrollment = Enrollment(
+            owner: nil,
+            dog: Dog(profile: profile, name: name, breed: breed, birthYear: birthYear, sex: sex),
+            firstImage: self.enrollment?.firstImage,
+            secondImage: self.enrollment?.secondImage,
+            thirdImage: self.enrollment?.thirdImage,
+            firthImage: self.enrollment?.firthImage,
+            fifthImage: self.enrollment?.fifthImage
+        )
         self.navigationController?.pushViewController(ownerProfileViewController, animated: true)
     }
     
@@ -127,8 +140,8 @@ class DogProfileViewController: UIViewController {
     
     
     private func presentModalViewController(usage: ModalViewUsage) {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let modalViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.modalViewController) as? ModalViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let modalViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.modalViewController) as? ModalViewController else {
             return
         }
         
