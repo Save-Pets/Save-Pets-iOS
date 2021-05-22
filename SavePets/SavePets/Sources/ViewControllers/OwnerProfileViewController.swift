@@ -21,6 +21,7 @@ class OwnerProfileViewController: UIViewController {
     
     // MARK: - Variables
     
+    var enrollment: Enrollment?
     private var ownerName: String?
     private var ownerPhoneNumber: String?
     private var ownerEmail: String?
@@ -65,24 +66,26 @@ class OwnerProfileViewController: UIViewController {
     }
         
     private func presentEnrollmentLoadingViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let enrollmentLoadingViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.enrollmentLoadingViewController) as? EnrollmentLoadingViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let enrollmentLoadingViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.enrollmentLoadingViewController) as? EnrollmentLoadingViewController else {
             return
         }
         
         self.enrollmentLoadingViewController = enrollmentLoadingViewController
-        enrollmentLoadingViewController.ownerName = self.ownerName
-        enrollmentLoadingViewController.dogName = "뽀삐"
+        enrollmentLoadingViewController.ownerName = self.enrollment?.owner?.name
+        enrollmentLoadingViewController.dogName = self.enrollment?.dog?.name
         enrollmentLoadingViewController.modalPresentationStyle = .fullScreen
         
         present(enrollmentLoadingViewController, animated: true, completion: nil)
     }
     
-    private func pushToEnrollmentResultViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let enrollmentResultViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.enrollmentResultViewController) as? EnrollmentResultViewController else {
+    private func pushToEnrollmentResultViewController(enrollmentResult: EnrollmentResult) {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let enrollmentResultViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.enrollmentResultViewController) as? EnrollmentResultViewController else {
             return
         }
+        
+        enrollmentResultViewController.enrollmentResult = enrollmentResult
         
         self.navigationController?.pushViewController(enrollmentResultViewController, animated: true)
     }
@@ -103,19 +106,30 @@ class OwnerProfileViewController: UIViewController {
 
     @IBAction func enrollmentButtonTouchUp(_ sender: UIButton) {
         
+        guard let name = self.ownerName, let phoneNumber = self.ownerPhoneNumber, let email = self.ownerEmail else { return }
+        
+        self.enrollment = Enrollment(
+            owner: Owner(name: name, phoneNumber: phoneNumber, email: email),
+            dog: self.enrollment?.dog,
+            firstImage: self.enrollment?.firstImage,
+            secondImage: self.enrollment?.secondImage,
+            thirdImage: self.enrollment?.thirdImage,
+            firthImage: self.enrollment?.firthImage,
+            fifthImage: self.enrollment?.fifthImage
+        )
+        
         // 로딩화면 띄우기
+        
         self.presentEnrollmentLoadingViewController()
         
-        // TODO: - 서버로 등록 API 요청 보내기
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-            // 로딩화면 종료
+        // 서버로 등록 API 요청 보내기
+        
+        self.postEnrollmentWithAPI(enrollment: enrollment) { result in
             self.enrollmentLoadingViewController?.dismiss(animated: true, completion: nil)
-            // 결과 화면으로 넘어가기
-            self.pushToEnrollmentResultViewController()
-        })
+            self.pushToEnrollmentResultViewController(enrollmentResult: result)
+        }
         
     }
-    
 }
 
 // MARK: - TextFieldDelegate
@@ -147,5 +161,66 @@ extension OwnerProfileViewController: UITextFieldDelegate {
         self.updateEnrollmentButton()
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: - API Services
+
+extension OwnerProfileViewController {
+    
+    private func postEnrollmentWithAPI(
+        enrollment: Enrollment?,
+        completion: @escaping (EnrollmentResult) -> Void
+    ) {
+        
+        guard let ownerName = self.enrollment?.owner?.name,
+              let phoneNumber = self.enrollment?.owner?.phoneNumber,
+              let email = self.enrollment?.owner?.email,
+              let dogName = self.enrollment?.dog?.name,
+              let dogBreed = self.enrollment?.dog?.breed,
+              let dogBirthYear = self.enrollment?.dog?.birthYear,
+              let dogSex = self.enrollment?.dog?.sex,
+              let dogProfileImage = self.enrollment?.dog?.profile,
+              let firstImage = self.enrollment?.firstImage,
+              let secondImage = self.enrollment?.secondImage,
+              let thirdImage = self.enrollment?.thirdImage,
+              let firthImage = self.enrollment?.firthImage,
+              let fifthImage = self.enrollment?.fifthImage
+              else {
+            return
+        }
+        
+        EnrollmentService.shared.postEnrollment(
+            ownerName: ownerName,
+            phoneNumber: phoneNumber,
+            email: email,
+            dogName: dogName,
+            dogBreed: dogBreed,
+            dogBirthYear: dogBirthYear,
+            dogSex: dogSex,
+            dogProfileImage: dogProfileImage,
+            firstDogNoseImage: firstImage,
+            secondDogNoseImage: secondImage,
+            thirdDogNoseImage: thirdImage,
+            firthDogNoseImage: firthImage,
+            fifthDogNoseImage: fifthImage
+        ) { (result) in
+            switch result {
+            case .success(let data):
+                if let enrollmentResult = data as? EnrollmentResult {
+                    DispatchQueue.main.async {
+                        completion(enrollmentResult)
+                    }
+                }
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
     }
 }
