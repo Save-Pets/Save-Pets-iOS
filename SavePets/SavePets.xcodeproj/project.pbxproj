@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */; };
 		1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */; };
+		1C5ED6182654C724005A515C /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6172654C724005A515C /* GenericResponse.swift */; };
+		1C5ED61A2654C730005A515C /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6192654C730005A515C /* NetworkResult.swift */; };
+		1C5ED61C2654CB37005A515C /* EnrollmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED61B2654CB37005A515C /* EnrollmentService.swift */; };
+		1C5ED61E2654CE3F005A515C /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED61D2654CE3F005A515C /* APIConstants.swift */; };
+		1C5ED6202654E450005A515C /* SearchingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED61F2654E450005A515C /* SearchingService.swift */; };
+		1C5ED6222654E6EF005A515C /* SearchingResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6212654E6EF005A515C /* SearchingResult.swift */; };
+		1C5ED6242654E8DA005A515C /* EnrollmentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6232654E8DA005A515C /* EnrollmentResult.swift */; };
+		1C5ED6262654EFB6005A515C /* Enrollment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6252654EFB6005A515C /* Enrollment.swift */; };
+		1C5ED6282654EFC5005A515C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6272654EFC5005A515C /* Owner.swift */; };
+		1C5ED62A2654EFDC005A515C /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6292654EFDC005A515C /* Dog.swift */; };
 		1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FA92622C83D008370DF /* AppDelegate.swift */; };
 		1C7A2FAC2622C83D008370DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */; };
 		1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7A2FAD2622C83D008370DF /* HomeViewController.swift */; };
@@ -24,7 +34,7 @@
 		1C8CC28B263F262D00DD9D1E /* loading_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */; };
 		1C8CC28D263F2EC500DD9D1E /* NoseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC28C263F2EC500DD9D1E /* NoseSelectionViewController.swift */; };
 		1C8CC28F263F2EDB00DD9D1E /* NosePhotoShootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC28E263F2EDB00DD9D1E /* NosePhotoShootViewController.swift */; };
-		1C8CC291263F2EEE00DD9D1E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC290263F2EEE00DD9D1E /* Constants.swift */; };
+		1C8CC291263F2EEE00DD9D1E /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8CC290263F2EEE00DD9D1E /* AppConstants.swift */; };
 		1C8F74C02644012C005CD8F7 /* SearchLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F74BF2644012C005CD8F7 /* SearchLoadingViewController.swift */; };
 		1C8F74C226440188005CD8F7 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F74C126440188005CD8F7 /* SearchResultViewController.swift */; };
 		1CD73FC02649AB1900F3883A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD73FBF2649AB1900F3883A /* PreviewViewController.swift */; };
@@ -56,6 +66,16 @@
 /* Begin PBXFileReference section */
 		1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentLoadingViewController.swift; sourceTree = "<group>"; };
 		1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentResultViewController.swift; sourceTree = "<group>"; };
+		1C5ED6172654C724005A515C /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
+		1C5ED6192654C730005A515C /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		1C5ED61B2654CB37005A515C /* EnrollmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentService.swift; sourceTree = "<group>"; };
+		1C5ED61D2654CE3F005A515C /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		1C5ED61F2654E450005A515C /* SearchingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingService.swift; sourceTree = "<group>"; };
+		1C5ED6212654E6EF005A515C /* SearchingResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingResult.swift; sourceTree = "<group>"; };
+		1C5ED6232654E8DA005A515C /* EnrollmentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentResult.swift; sourceTree = "<group>"; };
+		1C5ED6252654EFB6005A515C /* Enrollment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enrollment.swift; sourceTree = "<group>"; };
+		1C5ED6272654EFC5005A515C /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
+		1C5ED6292654EFDC005A515C /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		1C7A2FA62622C83D008370DF /* SavePets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SavePets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7A2FA92622C83D008370DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7A2FAB2622C83D008370DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +97,7 @@
 		1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading_video.mp4; sourceTree = "<group>"; };
 		1C8CC28C263F2EC500DD9D1E /* NoseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoseSelectionViewController.swift; sourceTree = "<group>"; };
 		1C8CC28E263F2EDB00DD9D1E /* NosePhotoShootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NosePhotoShootViewController.swift; sourceTree = "<group>"; };
-		1C8CC290263F2EEE00DD9D1E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1C8CC290263F2EEE00DD9D1E /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		1C8F74BF2644012C005CD8F7 /* SearchLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLoadingViewController.swift; sourceTree = "<group>"; };
 		1C8F74C126440188005CD8F7 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		1CD73FBF2649AB1900F3883A /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +143,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C5ED6152654C45D005A515C /* Enrollment */ = {
+			isa = PBXGroup;
+			children = (
+				1C5ED61B2654CB37005A515C /* EnrollmentService.swift */,
+			);
+			path = Enrollment;
+			sourceTree = "<group>";
+		};
+		1C5ED6162654C493005A515C /* Searching */ = {
+			isa = PBXGroup;
+			children = (
+				1C5ED61F2654E450005A515C /* SearchingService.swift */,
+			);
+			path = Searching;
+			sourceTree = "<group>";
+		};
 		1C7A2F9D2622C83D008370DF = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +211,10 @@
 		1C7E7ECD26451A1E0006636A /* APIServices */ = {
 			isa = PBXGroup;
 			children = (
+				1C5ED6152654C45D005A515C /* Enrollment */,
+				1C5ED6162654C493005A515C /* Searching */,
+				1C5ED6172654C724005A515C /* GenericResponse.swift */,
+				1C5ED6192654C730005A515C /* NetworkResult.swift */,
 			);
 			path = APIServices;
 			sourceTree = "<group>";
@@ -211,7 +251,8 @@
 		1CD74502263299BE00A7FCE2 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				1C8CC290263F2EEE00DD9D1E /* Constants.swift */,
+				1C8CC290263F2EEE00DD9D1E /* AppConstants.swift */,
+				1C5ED61D2654CE3F005A515C /* APIConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -228,6 +269,11 @@
 		1CD74504263299FA00A7FCE2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1C5ED6232654E8DA005A515C /* EnrollmentResult.swift */,
+				1C5ED6212654E6EF005A515C /* SearchingResult.swift */,
+				1C5ED6252654EFB6005A515C /* Enrollment.swift */,
+				1C5ED6272654EFC5005A515C /* Owner.swift */,
+				1C5ED6292654EFDC005A515C /* Dog.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +360,8 @@
 			dependencies = (
 			);
 			name = SavePets;
+			packageProductDependencies = (
+			);
 			productName = SavePets;
 			productReference = 1C7A2FA62622C83D008370DF /* SavePets.app */;
 			productType = "com.apple.product-type.application";
@@ -388,6 +436,8 @@
 				Base,
 			);
 			mainGroup = 1C7A2F9D2622C83D008370DF;
+			packageReferences = (
+			);
 			productRefGroup = 1C7A2FA72622C83D008370DF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -536,23 +586,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C5ED6182654C724005A515C /* GenericResponse.swift in Sources */,
 				1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */,
 				1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */,
 				1C7E7ED1264546920006636A /* DogNoseDetector.mlmodel in Sources */,
 				1CD73FC02649AB1900F3883A /* PreviewViewController.swift in Sources */,
+				1C5ED62A2654EFDC005A515C /* Dog.swift in Sources */,
 				1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */,
+				1C5ED61C2654CB37005A515C /* EnrollmentService.swift in Sources */,
+				1C5ED6262654EFB6005A515C /* Enrollment.swift in Sources */,
 				1C7A2FAA2622C83D008370DF /* AppDelegate.swift in Sources */,
+				1C5ED61E2654CE3F005A515C /* APIConstants.swift in Sources */,
 				1C8CC27F263EFDDA00DD9D1E /* UIView+Extension.swift in Sources */,
 				1CF09296264133B90026C261 /* DogProfileViewController.swift in Sources */,
-				1C8CC291263F2EEE00DD9D1E /* Constants.swift in Sources */,
+				1C8CC291263F2EEE00DD9D1E /* AppConstants.swift in Sources */,
 				1C8CC28D263F2EC500DD9D1E /* NoseSelectionViewController.swift in Sources */,
 				1C8F74C226440188005CD8F7 /* SearchResultViewController.swift in Sources */,
 				1CF0929A2641987C0026C261 /* ModalViewController.swift in Sources */,
 				1C8372A72645776800630445 /* UIImage+Extension.swift in Sources */,
+				1C5ED6242654E8DA005A515C /* EnrollmentResult.swift in Sources */,
 				1CF09298264133CB0026C261 /* OwnerProfileViewController.swift in Sources */,
 				1C8CC28F263F2EDB00DD9D1E /* NosePhotoShootViewController.swift in Sources */,
 				1C8F74C02644012C005CD8F7 /* SearchLoadingViewController.swift in Sources */,
 				1C7A2FAC2622C83D008370DF /* SceneDelegate.swift in Sources */,
+				1C5ED6222654E6EF005A515C /* SearchingResult.swift in Sources */,
+				1C5ED6282654EFC5005A515C /* Owner.swift in Sources */,
+				1C5ED61A2654C730005A515C /* NetworkResult.swift in Sources */,
+				1C5ED6202654E450005A515C /* SearchingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
