@@ -25,8 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func updateRootToHomeViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: Constants.Identifier.homeViewController)
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: AppConstants.Identifier.homeViewController)
         self.navigationController = UINavigationController(rootViewController: homeViewController)
     }
 
