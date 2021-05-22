@@ -107,8 +107,8 @@ class HomeViewController: UIViewController {
     }
     
     private func pushToNoseSelectionViewController(usage: SavePetsUsage) {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let noseSelectionViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.noseSelectionViewController) as? NoseSelectionViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let noseSelectionViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.noseSelectionViewController) as? NoseSelectionViewController else {
             return
         }
         var noseArray = [UIImage]()
@@ -128,8 +128,8 @@ class HomeViewController: UIViewController {
     }
     
     private func pushToNosePhotoShootViewConfoller(usage: SavePetsUsage) {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let nosePhotoShootViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.nosePhotoShootViewController) as? NosePhotoShootViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let nosePhotoShootViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.nosePhotoShootViewController) as? NosePhotoShootViewController else {
             return
         }
         nosePhotoShootViewController.savePetsUsage = usage
