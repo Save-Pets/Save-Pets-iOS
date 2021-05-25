@@ -406,27 +406,27 @@
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="SDG-842745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="97U-9n-WDZ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="뽀삐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Q7G-1x-c9l">
                                                                 <rect key="frame" x="0.0" y="31.5" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="진돗개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ylK-7B-e5V">
                                                                 <rect key="frame" x="0.0" y="63" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="bS7-X1-14M">
                                                                 <rect key="frame" x="0.0" y="94.5" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="여" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="UUp-uM-7W6">
                                                                 <rect key="frame" x="0.0" y="126" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wMQ-Sm-eXM">
@@ -781,12 +781,12 @@
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SDG-842745" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="tZ1-cf-62k">
                                                                 <rect key="frame" x="0.0" y="0.0" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="뽀삐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="7M0-wO-tDQ">
                                                                 <rect key="frame" x="0.0" y="31.5" width="157" height="21.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="진돗개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="9kO-GH-xpk">
@@ -879,10 +879,10 @@
                     </view>
                     <connections>
                         <outlet property="dogBirthYearLabel" destination="ESf-z5-Qiz" id="1eu-we-8Hl"/>
-                        <outlet property="dogBreedLabel" destination="9kO-GH-xpk" id="0MU-pc-0L3"/>
+                        <outlet property="dogBreedLabel" destination="9kO-GH-xpk" id="f7J-nR-30y"/>
                         <outlet property="dogEnrollmentNumberLabel" destination="tZ1-cf-62k" id="37g-9y-pkA"/>
                         <outlet property="dogImageView" destination="Lzc-OG-etx" id="eK0-Oa-w6A"/>
-                        <outlet property="dogNameLabel" destination="9kO-GH-xpk" id="mli-BQ-sSs"/>
+                        <outlet property="dogNameLabel" destination="7M0-wO-tDQ" id="FFK-ya-LZw"/>
                         <outlet property="dogSexLabel" destination="ieK-yf-SBx" id="mhz-g6-fGP"/>
                         <outlet property="homeButton" destination="4eI-Ut-f77" id="P8P-HM-cPy"/>
                         <outlet property="resultInfo2Label" destination="dF2-xw-zf9" id="EtS-RR-k2n"/>
