@@ -17,6 +17,6 @@ struct SearchingResult: Codable {
     let dogSex: String?
     let dogBirthYear: String?
     let dogProfile: String?
-    let matchRate: Int?
+    let matchRate: String?
     let isSuccess: Bool
 }
