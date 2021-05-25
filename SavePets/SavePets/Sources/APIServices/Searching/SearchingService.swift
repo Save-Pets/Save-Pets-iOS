@@ -50,7 +50,12 @@ struct SearchingService {
         }
         switch status {
         case 200:
-            guard let unwrappedData = decodedData.data else { return .serverErr }
+            guard let unwrappedData = decodedData.data else {
+                guard let unwrappedMessage = decodedData.message else {
+                    return .serverErr
+                }
+                return .success(unwrappedMessage)
+            }
             return .success(unwrappedData)
         case 400...500:
             return .serverErr
