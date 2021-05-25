@@ -53,12 +53,12 @@ struct EnrollmentService {
             let compressedFifthDogNoseImage = fifthDogNoseImage.crop(to: cropSize).jpegData(compressionQuality: 0.7) else {
                 return
             }
-            multipartFormData.append(compressedProfileImage, withName: "profile", fileName: "profile.jpeg", mimeType: "image/jpeg")
-            multipartFormData.append(compressedFirstDogNoseImage, withName: "dogNose", fileName: "firstDogNoseImage.jpeg", mimeType: "image/jpeg")
-            multipartFormData.append(compressedSecondDogNoseImage, withName: "dogNose", fileName: "secondDogNoseImage.jpeg", mimeType: "image/jpeg")
-            multipartFormData.append(compressedThirdDogNoseImage, withName: "dogNose", fileName: "thirdDogNoseImage.jpeg", mimeType: "image/jpeg")
-            multipartFormData.append(compressedFirthDogNoseImage, withName: "dogNose", fileName: "firthDogNoseImage.jpeg", mimeType: "image/jpeg")
-            multipartFormData.append(compressedFifthDogNoseImage, withName: "dogNose", fileName: "fifthDogNoseImage.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(compressedProfileImage, withName: "dogProfile", fileName: "profile.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(compressedFirstDogNoseImage, withName: "dogNose1", fileName: "firstDogNoseImage.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(compressedSecondDogNoseImage, withName: "dogNose2", fileName: "secondDogNoseImage.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(compressedThirdDogNoseImage, withName: "dogNose3", fileName: "thirdDogNoseImage.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(compressedFirthDogNoseImage, withName: "dogNose4", fileName: "firthDogNoseImage.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(compressedFifthDogNoseImage, withName: "dogNose5", fileName: "fifthDogNoseImage.jpeg", mimeType: "image/jpeg")
             
             for (key, value) in params {
                 guard let safeValue = value as? String else { return }
@@ -87,10 +87,14 @@ struct EnrollmentService {
         guard let decodedData = try? decoder.decode(GenericResponse<EnrollmentResult>.self, from: data) else {
             return .pathErr
         }
-        
         switch status {
         case 200:
-            guard let unwrappedData = decodedData.data else { return .serverErr }
+            guard let unwrappedData = decodedData.data else {
+                guard let unwrappedMessage = decodedData.message else {
+                    return .serverErr
+                }
+                return .success(unwrappedMessage)
+            }
             return .success(unwrappedData)
         case 400...500:
             return .serverErr
