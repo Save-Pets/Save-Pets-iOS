@@ -88,8 +88,9 @@ class NosePhotoShootViewController: UIViewController {
             self.confirmButton.setTitle("저장하기", for: .normal)
         case .searching:
             self.confirmButton.setTitle("조회하기", for: .normal)
-            for view in self.noseStackView.arrangedSubviews {
-                view.isHidden = true
+            for (index, view) in self.noseStackView.arrangedSubviews.enumerated() where index != 0 {
+                view.isUserInteractionEnabled = false
+                view.backgroundColor = UIColor.clear
             }
         }
         
@@ -133,8 +134,8 @@ class NosePhotoShootViewController: UIViewController {
     }
     
     private func presentSearchLoadingViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let searchLoadingViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.searchLoadingViewController) as? SearchLoadingViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let searchLoadingViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.searchLoadingViewController) as? SearchLoadingViewController else {
             return
         }
         
@@ -147,8 +148,8 @@ class NosePhotoShootViewController: UIViewController {
     }
     
     private func presentPreviewViewController(currentIndex: Int, image: UIImage?) {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let previewViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.previewViewController) as? PreviewViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let previewViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.previewViewController) as? PreviewViewController else {
             return
         }
         self.stopCaptureSession()
@@ -161,18 +162,31 @@ class NosePhotoShootViewController: UIViewController {
     }
     
     private func pushToDogProfileViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let dogProfileViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.dogProfileViewController) as? DogProfileViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let dogProfileViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.dogProfileViewController) as? DogProfileViewController else {
             return
         }
+        
+        dogProfileViewController.enrollment = Enrollment(
+            owner: nil,
+            dog: nil,
+            firstImage: self.noseImageDict[0]?.imageView.image,
+            secondImage: self.noseImageDict[1]?.imageView.image,
+            thirdImage: self.noseImageDict[2]?.imageView.image,
+            firthImage: self.noseImageDict[3]?.imageView.image,
+            fifthImage: self.noseImageDict[4]?.imageView.image
+        )
+        
         self.navigationController?.pushViewController(dogProfileViewController, animated: true)
     }
     
-    private func pushToSearchResultViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let searchResultViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.searchResultViewController) as? SearchResultViewController else {
+    private func pushToSearchResultViewController(result: SearchingResult) {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let searchResultViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.searchResultViewController) as? SearchResultViewController else {
             return
         }
+        
+        searchResultViewController.searchingResult = result
         
         self.navigationController?.pushViewController(searchResultViewController, animated: true)
     }
@@ -229,7 +243,8 @@ class NosePhotoShootViewController: UIViewController {
     
     @discardableResult
     private func updateSelectedIndex(newIndex: Int) -> Bool {
-        if newIndex >= 5 {
+        let maxNoseNum = self.savePetsUsage == .enrollment ? 5 : 1
+        if newIndex >= maxNoseNum {
             return false
         }
         self.selectedIndex = newIndex
@@ -272,21 +287,16 @@ class NosePhotoShootViewController: UIViewController {
         case .enrollment:
             self.pushToDogProfileViewController()
         case .searching:
-            print("요청 API 보내고 로딩 VC 보여주기")
-            
             self.workItem = DispatchWorkItem {
-                // 로딩화면 종료
-                self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
-                // 결과 화면으로 넘어가기
-                self.pushToSearchResultViewController()
+                self.postSearchingWithAPI(dogNose: self.noseImageDict[0]?.imageView.image) { (result) in
+                    self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
+                    self.pushToSearchResultViewController(result: result)
+                }
             }
+            guard let safeWorkItem = self.workItem else { return }
+            DispatchQueue.global().async(execute: safeWorkItem)
             
-            // 로딩화면 띄우기
             self.presentSearchLoadingViewController()
-            
-            // TODO: - 서버로 등록 API 요청 보내기
-            guard let safeWorkItem = workItem else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: safeWorkItem)
         }
     }
 }
@@ -426,13 +436,13 @@ extension NosePhotoShootViewController: AVCaptureVideoDataOutputSampleBufferDele
         let exifOrientation: CGImagePropertyOrientation
         
         switch curDeviceOrientation {
-        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
+        case UIDeviceOrientation.portraitUpsideDown:
             exifOrientation = .left
-        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
+        case UIDeviceOrientation.landscapeLeft:
             exifOrientation = .upMirrored
-        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
+        case UIDeviceOrientation.landscapeRight:
             exifOrientation = .down
-        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
+        case UIDeviceOrientation.portrait:
             exifOrientation = .up
         default:
             exifOrientation = .up
@@ -576,5 +586,36 @@ extension NosePhotoShootViewController: PreviewViewControllerDelegate {
         self.updateConfirmButton()
         self.takePicture = false
         self.startCaptureSession()
+    }
+}
+
+// MARK: - API Services
+
+extension NosePhotoShootViewController {
+    
+    private func postSearchingWithAPI(
+        dogNose: UIImage?,
+        completion: @escaping (SearchingResult) -> Void
+    ) {
+        guard let dogNoseImage = dogNose else { return }
+        
+        SearchingService.shared.postSearching(noseImage: dogNoseImage) { (result) in
+            switch result {
+            case .success(let data):
+                if let searchingResult = data as? SearchingResult {
+                    DispatchQueue.main.async {
+                        completion(searchingResult)
+                    }
+                }
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
     }
 }

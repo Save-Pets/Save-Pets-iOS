@@ -347,16 +347,27 @@ class NoseSelectionViewController: UIViewController {
     }
     
     private func pushToDogProfileViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let dogProfileViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.dogProfileViewController) as? DogProfileViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let dogProfileViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.dogProfileViewController) as? DogProfileViewController else {
             return
         }
+        
+        dogProfileViewController.enrollment = Enrollment(
+            owner: nil,
+            dog: nil,
+            firstImage: self.noseImageList[0],
+            secondImage: self.noseImageList[1],
+            thirdImage: self.noseImageList[2],
+            firthImage: self.noseImageList[3],
+            fifthImage: self.noseImageList[4]
+        )
+        
         self.navigationController?.pushViewController(dogProfileViewController, animated: true)
     }
     
     private func presentSearchLoadingViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let searchLoadingViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.searchLoadingViewController) as? SearchLoadingViewController else {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let searchLoadingViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.searchLoadingViewController) as? SearchLoadingViewController else {
             return
         }
         
@@ -368,11 +379,13 @@ class NoseSelectionViewController: UIViewController {
         present(searchLoadingViewController, animated: true, completion: nil)
     }
     
-    private func pushToSearchResultViewController() {
-        let mainStoryboard = UIStoryboard(name: Constants.Name.mainStoryboard, bundle: nil)
-        guard let searchResultViewController = mainStoryboard.instantiateViewController(identifier: Constants.Identifier.searchResultViewController) as? SearchResultViewController else {
+    private func pushToSearchResultViewController(result: SearchingResult) {
+        let mainStoryboard = UIStoryboard(name: AppConstants.Name.mainStoryboard, bundle: nil)
+        guard let searchResultViewController = mainStoryboard.instantiateViewController(identifier: AppConstants.Identifier.searchResultViewController) as? SearchResultViewController else {
             return
         }
+        
+        searchResultViewController.searchingResult = result
         
         self.navigationController?.pushViewController(searchResultViewController, animated: true)
     }
@@ -387,21 +400,17 @@ class NoseSelectionViewController: UIViewController {
         case .enrollment:
             self.pushToDogProfileViewController()
         case .searching:
-            print("요청 API 보내고 로딩 VC 보여주기")
-            
             self.workItem = DispatchWorkItem {
-                // 로딩화면 종료
-                self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
-                // 결과 화면으로 넘어가기
-                self.pushToSearchResultViewController()
+                self.postSearchingWithAPI(dogNose: self.noseImageList[0]) { (result) in
+                    self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
+                    // 결과 화면으로 넘어가기
+                    self.pushToSearchResultViewController(result: result)
+                }
             }
+            guard let safeWorkItem = self.workItem else { return }
+            DispatchQueue.global().async(execute: safeWorkItem)
             
-            // 로딩화면 띄우기
             self.presentSearchLoadingViewController()
-            
-            // TODO: - 서버로 등록 API 요청 보내기
-            guard let safeWorkItem = workItem else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: safeWorkItem)
         }
     }
     
@@ -463,5 +472,39 @@ extension NoseSelectionViewController: UIImagePickerControllerDelegate, UINaviga
         self.updateNoseImages(index: self.selectedIndex, image: unwrappedPickedImage)
         self.verifyImage(index: self.selectedIndex)
         self.imagePicker?.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - API Services
+
+extension NoseSelectionViewController {
+    
+    private func postSearchingWithAPI(
+        dogNose: UIImage?,
+        completion: @escaping (SearchingResult) -> Void
+    ) {
+        guard let dogNoseImage = dogNose else { return }
+        SearchingService.shared.postSearching(noseImage: dogNoseImage) { (result) in
+            switch result {
+            case .success(let data):
+                if let searchingResult = data as? SearchingResult {
+                    DispatchQueue.main.async {
+                        completion(searchingResult)
+                    }
+                } else {
+                    if let enrollmentMessage = data as? String, enrollmentMessage == "fail" {
+                        self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
+                    }
+                }
+            case .requestErr:
+                print("requestErr")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Constants {
+struct AppConstants {
     struct Name {
         static let mainStoryboard: String = "Main"
     }
