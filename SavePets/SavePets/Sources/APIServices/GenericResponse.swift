@@ -12,7 +12,7 @@ struct GenericResponse<T: Codable>: Decodable {
     var message: String?
     
     enum CodingKeys: String, CodingKey {
-        case message, data, error
+        case message, data
     }
     
     init(from decoder: Decoder) throws {
