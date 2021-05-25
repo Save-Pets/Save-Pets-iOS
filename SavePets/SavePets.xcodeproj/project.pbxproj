@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C545652265D189A00115BA0 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545651265D189A00115BA0 /* UIImageView+Extension.swift */; };
 		1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */; };
 		1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */; };
 		1C5ED6182654C724005A515C /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6172654C724005A515C /* GenericResponse.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C545651265D189A00115BA0 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentLoadingViewController.swift; sourceTree = "<group>"; };
 		1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentResultViewController.swift; sourceTree = "<group>"; };
 		1C5ED6172654C724005A515C /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				1C8CC27E263EFDDA00DD9D1E /* UIView+Extension.swift */,
 				1C8372A62645776800630445 /* UIImage+Extension.swift */,
+				1C545651265D189A00115BA0 /* UIImageView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 			files = (
 				1C5ED6182654C724005A515C /* GenericResponse.swift in Sources */,
 				1C7A2FAE2622C83D008370DF /* HomeViewController.swift in Sources */,
+				1C545652265D189A00115BA0 /* UIImageView+Extension.swift in Sources */,
 				1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */,
 				1C7E7ED1264546920006636A /* DogNoseDetector.mlmodel in Sources */,
 				1CD73FC02649AB1900F3883A /* PreviewViewController.swift in Sources */,
