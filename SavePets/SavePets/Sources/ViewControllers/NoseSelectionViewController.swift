@@ -484,13 +484,16 @@ extension NoseSelectionViewController {
         completion: @escaping (SearchingResult) -> Void
     ) {
         guard let dogNoseImage = dogNose else { return }
-        
         SearchingService.shared.postSearching(noseImage: dogNoseImage) { (result) in
             switch result {
             case .success(let data):
                 if let searchingResult = data as? SearchingResult {
                     DispatchQueue.main.async {
                         completion(searchingResult)
+                    }
+                } else {
+                    if let enrollmentMessage = data as? String, enrollmentMessage == "fail" {
+                        self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
                     }
                 }
             case .requestErr:

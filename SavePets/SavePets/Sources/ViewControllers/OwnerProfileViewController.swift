@@ -211,6 +211,10 @@ extension OwnerProfileViewController {
                     DispatchQueue.main.async {
                         completion(enrollmentResult)
                     }
+                } else {
+                    if let enrollmentMessage = data as? String, enrollmentMessage == "fail" {
+                        self.enrollmentLoadingViewController?.dismiss(animated: true, completion: nil)
+                    }
                 }
             case .requestErr:
                 print("requestErr")
