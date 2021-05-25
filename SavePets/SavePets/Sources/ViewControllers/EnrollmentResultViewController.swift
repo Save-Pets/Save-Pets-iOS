@@ -39,7 +39,7 @@ class EnrollmentResultViewController: UIViewController {
         self.dogImageView.roundUp(radius: 12)
         self.homeButton.roundUp(radius: 12)
         
-        self.updateDogInfo(enrollmentNumber: self.enrollmentResult?.dogRegistNum, name: self.enrollmentResult?.dogName, breed: self.enrollmentResult?.dogBreed, birthYear: self.enrollmentResult?.dogBirthYear, sex: self.enrollmentResult?.dogSex, image: self.enrollmentResult?.dogProfile)
+        self.updateDogInfo(enrollmentNumber: self.enrollmentResult?.dogRegistNum, name: self.enrollmentResult?.dogName, breed: self.enrollmentResult?.dogBreed, birthYear: self.enrollmentResult?.dogBirthYear, sex: self.enrollmentResult?.dogSex, imageURL: self.enrollmentResult?.dogProfile)
         
         guard let isSuccess = self.enrollmentResult?.isSuccess else { return }
         if isSuccess {
@@ -51,22 +51,19 @@ class EnrollmentResultViewController: UIViewController {
         }
     }
     
-    private func updateDogInfo(enrollmentNumber: String?, name: String?, breed: String?, birthYear: String?, sex: String?, image: String?) {
-        guard let safeDogImage = image else { return }
-        guard let dogImageURL = URL(string: safeDogImage) else { return }
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: dogImageURL) {
-                DispatchQueue.main.async {
-                    self.dogImageView.image = UIImage(data: data)
-                }
-            }
-        }
+    private func updateDogInfo(enrollmentNumber: String?, name: String?, breed: String?, birthYear: String?, sex: String?, imageURL: String?) {
         
         self.dogEnrollmentNumberLabel.text = enrollmentNumber
         self.dogNameLabel.text = name
         self.dogBreedLabel.text = breed
         self.dogBirthYearLabel.text = birthYear
         self.dogSexLabel.text = sex
+        
+        guard let safeEnrollmentNumber = enrollmentNumber else {
+            return
+        }
+        guard let dogImageURL = URL(string: APIConstants.baseURL + "/static/img/" + safeEnrollmentNumber + ".jpg") else { return }
+        self.dogImageView.imageDownload(url: dogImageURL, contentMode: .scaleAspectFill)
     }
     
     private func popToHomeViewController() {

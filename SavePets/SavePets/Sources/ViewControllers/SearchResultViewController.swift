@@ -47,7 +47,7 @@ class SearchResultViewController: UIViewController {
         guard let isSuccess = self.searchingResult?.isSuccess else { return }
         
         if isSuccess {
-            self.updateDogInfo(enrollmentNumber: self.searchingResult?.dogRegistNum, name: self.searchingResult?.dogName, breed: self.searchingResult?.dogBreed, birthYear: self.searchingResult?.dogBirthYear, sex: self.searchingResult?.dogSex, image: self.searchingResult?.dogProfile)
+            self.updateDogInfo(enrollmentNumber: self.searchingResult?.dogRegistNum, name: self.searchingResult?.dogName, breed: self.searchingResult?.dogBreed, birthYear: self.searchingResult?.dogBirthYear, sex: self.searchingResult?.dogSex, imageURL: self.searchingResult?.dogProfile)
             self.updateOwnerInfo(ownerName: self.searchingResult?.registrant, phoneNumber: self.searchingResult?.phoneNum, email: self.searchingResult?.email)
             self.updateMatchInfo(matchRate: self.searchingResult?.matchRate, message: "일치합니다")
         } else {
@@ -70,22 +70,20 @@ class SearchResultViewController: UIViewController {
         self.matchRateLabel.isHidden = true
     }
     
-    private func updateDogInfo(enrollmentNumber: String?, name: String?, breed: String?, birthYear: String?, sex: String?, image: String?) {
-        guard let safeDogImage = image else { return }
-        guard let dogImageURL = URL(string: safeDogImage) else { return }
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: dogImageURL) {
-                DispatchQueue.main.async {
-                    self.dogImageView.image = UIImage(data: data)
-                }
-            }
-        }
+    private func updateDogInfo(enrollmentNumber: String?, name: String?, breed: String?, birthYear: String?, sex: String?, imageURL: String?) {
         
         self.enrollmentNumberLabel.text = enrollmentNumber
         self.dogNameLabel.text = name
         self.dogBreedLabel.text = breed
         self.dogBirthYearLabel.text = birthYear
         self.dogSexLabel.text = sex
+        
+        
+        guard let safeEnrollmentNumber = enrollmentNumber else {
+            return
+        }
+        guard let dogImageURL = URL(string: APIConstants.baseURL + "/static/img/" + safeEnrollmentNumber + ".jpg") else { return }
+        self.dogImageView.imageDownload(url: dogImageURL, contentMode: .scaleAspectFill)
     }
     
     private func updateOwnerInfo(ownerName: String?, phoneNumber: String?, email: String?) {
@@ -94,7 +92,7 @@ class SearchResultViewController: UIViewController {
         self.ownerEmailLabel.text = email
     }
     
-    private func updateMatchInfo(matchRate: Int?, message: String) {
+    private func updateMatchInfo(matchRate: String?, message: String) {
         guard let safeMatchRate = matchRate else { return }
         self.matchRateLabel.text = "\(safeMatchRate)%"
         self.matchInfoLabel.text = message
