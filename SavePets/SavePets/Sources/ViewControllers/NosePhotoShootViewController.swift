@@ -55,7 +55,6 @@ class NosePhotoShootViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.rootLayer.bounds = self.previewView.layer.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -357,7 +356,6 @@ extension NosePhotoShootViewController: AVCaptureVideoDataOutputSampleBufferDele
             return
         }
         
-        session.beginConfiguration()
         session.sessionPreset = .vga640x480
         
         guard session.canAddInput(deviceInput) else {
@@ -404,17 +402,18 @@ extension NosePhotoShootViewController: AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func setupAVCapture() {
+        self.session.beginConfiguration()
         self.setupInputs()
         self.setupOutputs()
-        self.setupPreviewLayer()
-        
         self.session.commitConfiguration()
         
-        self.setupLayers()
-        self.updateLayerGeometry()
-        self.setupVision()
+        DispatchQueue.main.async {
+            self.setupPreviewLayer()
+            self.setupLayers()
+            self.updateLayerGeometry()
+        }
         
-        self.startCaptureSession()
+        self.setupVision()
     }
     
     func startCaptureSession() {
