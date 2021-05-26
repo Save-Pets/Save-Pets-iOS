@@ -37,8 +37,8 @@ class NoseSelectionViewController: UIViewController {
 
     var savePetsUsage: SavePetsUsage = .enrollment
     var noseImageList: [UIImage] = []
+    var showResult: Bool = true
     private var noseImageDict: [Int: ImageInfo] = [:]
-    private var workItem: DispatchWorkItem?
     private var selectedIndex: Int = 0
     private var imagePicker: UIImagePickerController?
     private var searchLoadingViewController: SearchLoadingViewController?
@@ -372,8 +372,7 @@ class NoseSelectionViewController: UIViewController {
         }
         
         self.searchLoadingViewController = searchLoadingViewController
-        
-        searchLoadingViewController.workItem = self.workItem
+        searchLoadingViewController.searchLoadingViewControllerDelegate = self
         searchLoadingViewController.modalPresentationStyle = .fullScreen
         
         present(searchLoadingViewController, animated: true, completion: nil)
@@ -400,16 +399,16 @@ class NoseSelectionViewController: UIViewController {
         case .enrollment:
             self.pushToDogProfileViewController()
         case .searching:
-            self.workItem = DispatchWorkItem {
+            self.showResult = true
+            DispatchQueue.global().async {
                 self.postSearchingWithAPI(dogNose: self.noseImageList[0]) { (result) in
-                    self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
-                    // 결과 화면으로 넘어가기
-                    self.pushToSearchResultViewController(result: result)
+                    if self.showResult {
+                        self.searchLoadingViewController?.dismiss(animated: true, completion: {
+                            self.pushToSearchResultViewController(result: result)
+                        })
+                    }
                 }
             }
-            guard let safeWorkItem = self.workItem else { return }
-            DispatchQueue.global().async(execute: safeWorkItem)
-            
             self.presentSearchLoadingViewController()
         }
     }
@@ -472,6 +471,14 @@ extension NoseSelectionViewController: UIImagePickerControllerDelegate, UINaviga
         self.updateNoseImages(index: self.selectedIndex, image: unwrappedPickedImage)
         self.verifyImage(index: self.selectedIndex)
         self.imagePicker?.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - SearchLoadingViewControllerDelegate
+
+extension NoseSelectionViewController: SearchLoadingViewControllerDelegate {
+    func cancelButtonTouchUp() {
+        self.showResult = false
     }
 }
 
