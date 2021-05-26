@@ -574,7 +574,7 @@ extension NosePhotoShootViewController: PreviewViewControllerDelegate {
         self.noseImageDict[currentIndex]?.imageView.image = nil
         self.noseImageDict[currentIndex]?.isVerified = false
         self.updateConfirmButton()
-        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1500)) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1000)) {
             self.takePicture = false
             self.startCaptureSession()
         }
@@ -584,7 +584,7 @@ extension NosePhotoShootViewController: PreviewViewControllerDelegate {
         self.noseImageDict[currentIndex]?.imageView.image = previewImage
         self.noseImageDict[currentIndex]?.isVerified = true
         self.updateConfirmButton()
-        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1500)) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1000)) {
             self.takePicture = false
             self.startCaptureSession()
         }
