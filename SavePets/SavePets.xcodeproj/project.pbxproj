@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C545652265D189A00115BA0 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545651265D189A00115BA0 /* UIImageView+Extension.swift */; };
 		1C545656265E71D600115BA0 /* loading_video2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C545655265E71D600115BA0 /* loading_video2.mp4 */; };
-		1C545658265E71E300115BA0 /* main_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C545657265E71E300115BA0 /* main_video.mp4 */; };
+		1C54565A265E7AED00115BA0 /* main_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C545659265E7AED00115BA0 /* main_video.mp4 */; };
 		1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */; };
 		1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */; };
 		1C5ED6182654C724005A515C /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6172654C724005A515C /* GenericResponse.swift */; };
@@ -68,7 +68,7 @@
 /* Begin PBXFileReference section */
 		1C545651265D189A00115BA0 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		1C545655265E71D600115BA0 /* loading_video2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading_video2.mp4; sourceTree = "<group>"; };
-		1C545657265E71E300115BA0 /* main_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = main_video.mp4; path = ../../../../../main_video.mp4; sourceTree = "<group>"; };
+		1C545659265E7AED00115BA0 /* main_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = main_video.mp4; path = ../../../../../main_video.mp4; sourceTree = "<group>"; };
 		1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentLoadingViewController.swift; sourceTree = "<group>"; };
 		1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentResultViewController.swift; sourceTree = "<group>"; };
 		1C5ED6172654C724005A515C /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -227,9 +227,9 @@
 			isa = PBXGroup;
 			children = (
 				1C7E7ED0264546920006636A /* DogNoseDetector.mlmodel */,
+				1C545659265E7AED00115BA0 /* main_video.mp4 */,
 				1C545655265E71D600115BA0 /* loading_video2.mp4 */,
 				1C8CC28A263F262D00DD9D1E /* loading_video.mp4 */,
-				1C545657265E71E300115BA0 /* main_video.mp4 */,
 				1C7A2FB72622C83F008370DF /* Info.plist */,
 				1C7A2FB22622C83F008370DF /* Assets.xcassets */,
 				1CD74503263299C900A7FCE2 /* Storyboards */,
@@ -462,7 +462,7 @@
 			files = (
 				1C545656265E71D600115BA0 /* loading_video2.mp4 in Resources */,
 				1C7A2FB62622C83F008370DF /* LaunchScreen.storyboard in Resources */,
-				1C545658265E71E300115BA0 /* main_video.mp4 in Resources */,
+				1C54565A265E7AED00115BA0 /* main_video.mp4 in Resources */,
 				1C7A2FB32622C83F008370DF /* Assets.xcassets in Resources */,
 				1C7A2FB12622C83D008370DF /* Main.storyboard in Resources */,
 				1C8CC28B263F262D00DD9D1E /* loading_video.mp4 in Resources */,
