@@ -30,6 +30,7 @@ class EnrollmentResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeEnrollmentResultViewController()
+        self.initializeNavigationBar()
     }
     
     
@@ -49,6 +50,10 @@ class EnrollmentResultViewController: UIViewController {
             self.resultInfoLabel.text = "이미 등록된"
             self.resultInfo2Label.text = "반려견 입니다"
         }
+    }
+    
+    private func initializeNavigationBar() {
+        self.navigationItem.backButtonTitle = "뒤로가기"
     }
     
     private func updateDogInfo(enrollmentNumber: String?, name: String?, breed: String?, birthYear: String?, sex: String?, imageURL: String?) {
