@@ -72,7 +72,6 @@ class OwnerProfileViewController: UIViewController {
         }
         
         self.enrollmentLoadingViewController = enrollmentLoadingViewController
-        enrollmentLoadingViewController.ownerName = self.enrollment?.owner?.name
         enrollmentLoadingViewController.dogName = self.enrollment?.dog?.name
         enrollmentLoadingViewController.modalPresentationStyle = .fullScreen
         
