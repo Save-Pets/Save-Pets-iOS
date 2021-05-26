@@ -30,7 +30,7 @@ class NosePhotoShootViewController: UIViewController {
     private var selectedIndex: Int = 0
     private var noseImageDict: [Int: ImageInfo] = [:]
     private var searchLoadingViewController: SearchLoadingViewController?
-    private var workItem: DispatchWorkItem?
+    private var showResult: Bool = true
     
     private var takePicture: Bool = false
     private var touchImageView: Bool = false
@@ -140,8 +140,6 @@ class NosePhotoShootViewController: UIViewController {
         }
         
         self.searchLoadingViewController = searchLoadingViewController
-        
-        searchLoadingViewController.workItem = self.workItem
         searchLoadingViewController.modalPresentationStyle = .fullScreen
         
         present(searchLoadingViewController, animated: true, completion: nil)
@@ -287,15 +285,16 @@ class NosePhotoShootViewController: UIViewController {
         case .enrollment:
             self.pushToDogProfileViewController()
         case .searching:
-            self.workItem = DispatchWorkItem {
+            self.showResult = true
+            DispatchQueue.global().async {
                 self.postSearchingWithAPI(dogNose: self.noseImageDict[0]?.imageView.image) { (result) in
-                    self.searchLoadingViewController?.dismiss(animated: true, completion: nil)
-                    self.pushToSearchResultViewController(result: result)
+                    if self.showResult {
+                        self.searchLoadingViewController?.dismiss(animated: true, completion: {
+                            self.pushToSearchResultViewController(result: result)
+                        })
+                    }
                 }
             }
-            guard let safeWorkItem = self.workItem else { return }
-            DispatchQueue.global().async(execute: safeWorkItem)
-            
             self.presentSearchLoadingViewController()
         }
     }
@@ -586,6 +585,13 @@ extension NosePhotoShootViewController: PreviewViewControllerDelegate {
         self.updateConfirmButton()
         self.takePicture = false
         self.startCaptureSession()
+    }
+}
+
+// MARK: - SearchLoadingViewControllerDelegate
+extension NosePhotoShootViewController: SearchLoadingViewControllerDelegate {
+    func cancelButtonTouchUp() {
+        self.showResult = false
     }
 }
 

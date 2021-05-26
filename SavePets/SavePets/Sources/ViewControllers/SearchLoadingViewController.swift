@@ -8,8 +8,12 @@
 import UIKit
 import AVFoundation
 
-class SearchLoadingViewController: UIViewController {
+protocol SearchLoadingViewControllerDelegate: AnyObject {
+    func cancelButtonTouchUp()
+}
 
+class SearchLoadingViewController: UIViewController {
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -17,23 +21,21 @@ class SearchLoadingViewController: UIViewController {
     
     // MARK: - Variables
     
-    weak var workItem: DispatchWorkItem?
+    weak var searchLoadingViewControllerDelegate: SearchLoadingViewControllerDelegate?
     private var queuePlayer: AVQueuePlayer?
     private var playerLooper: AVPlayerLooper?
     private var playerLayer: AVPlayerLayer?
-    
     
     // View Life Cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        DispatchQueue.global().async {
-            self.initializePlayer()
-            DispatchQueue.main.async {
-                self.attachPlayerLayerToBackground()
-            }
-        }
+        self.initializePlayer()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.attachPlayerLayerToBackground()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +79,7 @@ class SearchLoadingViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTouchUp(_ sender: UIButton) {
-        self.workItem?.cancel()
+        self.searchLoadingViewControllerDelegate?.cancelButtonTouchUp()
         self.dismiss(animated: true, completion: nil)
     }
 }
