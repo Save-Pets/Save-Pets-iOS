@@ -574,16 +574,20 @@ extension NosePhotoShootViewController: PreviewViewControllerDelegate {
         self.noseImageDict[currentIndex]?.imageView.image = nil
         self.noseImageDict[currentIndex]?.isVerified = false
         self.updateConfirmButton()
-        self.takePicture = false
-        self.startCaptureSession()
+        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1500)) {
+            self.takePicture = false
+            self.startCaptureSession()
+        }
     }
     
     func confirmButtonTouchUp(currentIndex: Int, previewImage: UIImage?) {
         self.noseImageDict[currentIndex]?.imageView.image = previewImage
         self.noseImageDict[currentIndex]?.isVerified = true
         self.updateConfirmButton()
-        self.takePicture = false
-        self.startCaptureSession()
+        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1500)) {
+            self.takePicture = false
+            self.startCaptureSession()
+        }
     }
 }
 
