@@ -217,7 +217,7 @@ class NoseSelectionViewController: UIViewController {
             }
         }
         
-        if noseNumber == 1 && nostrilsNumber == 2 && isSatisfiedSizeOfNose {
+        if noseNumber == 1 && nostrilsNumber >= 2 && isSatisfiedSizeOfNose {
             self.showOKMessage(message: "확인되었습니다")
             for shapeLayer in shapeLayers {
                 self.detectionOverlay?.addSublayer(shapeLayer)
@@ -225,7 +225,7 @@ class NoseSelectionViewController: UIViewController {
             self.noseImageDict[self.selectedIndex]?.isVerified = true
             self.detachDarkLayerOnImage(index: self.selectedIndex)
         } else {
-            if noseNumber == 1 && nostrilsNumber == 2 {
+            if noseNumber == 1 && nostrilsNumber >= 2 {
                 self.showAlertMessage(message: "반려견 코의 크기가 충분히 크지 않습니다")
             } else if noseNumber == 0 || nostrilsNumber == 0 {
                 self.showAlertMessage(message: "반려견의 코를 찾을 수 없습니다")
