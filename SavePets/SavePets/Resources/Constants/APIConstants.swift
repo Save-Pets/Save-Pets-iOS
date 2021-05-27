@@ -8,7 +8,7 @@
 import Foundation
 
 struct APIConstants {
-    static let baseURL = "http://ec2-13-125-252-86.ap-northeast-2.compute.amazonaws.com:5000"
+    static let baseURL = "http://ec2-13-124-2-229.ap-northeast-2.compute.amazonaws.com:5000"
     
     static let enrollmentURL = APIConstants.baseURL + "/register"
     
