@@ -285,8 +285,9 @@ class NosePhotoShootViewController: UIViewController {
             self.pushToDogProfileViewController()
         case .searching:
             self.showResult = true
+            let dogNoseImage = self.noseImageDict[0]?.imageView.image
             DispatchQueue.global().async {
-                self.postSearchingWithAPI(dogNose: self.noseImageDict[0]?.imageView.image) { (result) in
+                self.postSearchingWithAPI(dogNose: dogNoseImage) { (result) in
                     if self.showResult {
                         self.searchLoadingViewController?.dismiss(animated: true, completion: {
                             self.pushToSearchResultViewController(result: result)
