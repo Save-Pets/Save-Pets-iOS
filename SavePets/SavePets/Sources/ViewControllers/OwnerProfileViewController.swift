@@ -118,16 +118,15 @@ class OwnerProfileViewController: UIViewController {
         )
         
         // 로딩화면 띄우기
-        
         self.presentEnrollmentLoadingViewController()
         
         // 서버로 등록 API 요청 보내기
-        
-        self.postEnrollmentWithAPI(enrollment: enrollment) { result in
-            self.enrollmentLoadingViewController?.dismiss(animated: true, completion: nil)
-            self.pushToEnrollmentResultViewController(enrollmentResult: result)
+        DispatchQueue.global().async {
+            self.postEnrollmentWithAPI(enrollment: self.enrollment) { result in
+                self.enrollmentLoadingViewController?.dismiss(animated: true, completion: nil)
+                self.pushToEnrollmentResultViewController(enrollmentResult: result)
+            }
         }
-        
     }
 }
 

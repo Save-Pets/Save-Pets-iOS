@@ -28,8 +28,8 @@ class ModalViewController: UIViewController {
     var modalViewUsage: ModalViewUsage = .breed
     var modalViewControllerDelegate: ModalViewControllerDelegate?
     private var pickerList = [String]()
-    private var breedList: [String] = ["푸들", "포메라니안", "불독", "진돗개", "치와와"]
-    private var birthYearList: [String] = ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021"]
+    private var breedList: [String] = DogBreed.list
+    private var birthYearList: [String] = (2000...2021).map {String($0)}
     private var genderList: [String] = ["남", "여"]
     
     // MARK: - Life Cycles
@@ -59,8 +59,8 @@ class ModalViewController: UIViewController {
         case .gender:
             self.pickerList = self.genderList
         }
-        
-        self.pickerView.selectRow(2, inComponent: 0, animated: true)
+        let centerIndex = self.pickerList.count / 2
+        self.pickerView.selectRow(centerIndex, inComponent: 0, animated: true)
     }
 
     @IBAction func cancelButtonTouchUp(_ sender: Any) {
