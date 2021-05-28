@@ -498,7 +498,7 @@ extension NosePhotoShootViewController: AVCaptureVideoDataOutputSampleBufferDele
             if topLabelObservationLabel == "nose" {
                 noseNumber += 1
                 print(topLabelObservationBoundingBoxes)
-                if topLabelObservationBoundingBoxes.width >= 0.4 && topLabelObservationBoundingBoxes.height >= 0.8 {
+                if topLabelObservationBoundingBoxes.width >= 0.4 && topLabelObservationBoundingBoxes.height >= 0.6 {
                     isSatisfiedSizeOfNose = true
                     shapeLayers.append(shapeLayer)
                 }
