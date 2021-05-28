@@ -259,13 +259,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="조회중 입니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ylw-Uc-zGw">
-                                <rect key="frame" x="50" y="685" width="162.5" height="36"/>
+                                <rect key="frame" x="50" y="695" width="162.5" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="잠시만 기다려 주세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qst-Yp-Qo8">
-                                <rect key="frame" x="50" y="731" width="256.5" height="36"/>
+                                <rect key="frame" x="50" y="741" width="256.5" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -300,7 +300,7 @@
                             <constraint firstItem="qst-Yp-Qo8" firstAttribute="top" secondItem="Ylw-Uc-zGw" secondAttribute="bottom" constant="10" id="Jc5-pJ-ETu"/>
                             <constraint firstItem="MkT-Xv-u68" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qst-Yp-Qo8" secondAttribute="trailing" symbolic="YES" id="PIZ-xe-oHK"/>
                             <constraint firstItem="yLN-Na-fuy" firstAttribute="top" secondItem="dRr-lX-m1K" secondAttribute="top" id="QYC-r7-D90"/>
-                            <constraint firstItem="2HR-cZ-Pmw" firstAttribute="top" secondItem="qst-Yp-Qo8" secondAttribute="bottom" constant="30" id="XSz-Wc-W7v"/>
+                            <constraint firstItem="2HR-cZ-Pmw" firstAttribute="top" secondItem="qst-Yp-Qo8" secondAttribute="bottom" constant="20" id="XSz-Wc-W7v"/>
                             <constraint firstItem="b8C-QC-p5m" firstAttribute="top" secondItem="MkT-Xv-u68" secondAttribute="top" constant="30" id="Xtw-Ki-Xzf"/>
                             <constraint firstAttribute="trailing" secondItem="yLN-Na-fuy" secondAttribute="trailing" id="YU3-1O-hTL"/>
                             <constraint firstItem="MkT-Xv-u68" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ylw-Uc-zGw" secondAttribute="trailing" symbolic="YES" id="gal-c7-KmP"/>
@@ -615,11 +615,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Btp-rO-CdY">
                                                 <rect key="frame" x="0.0" y="50" width="294" height="50"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) 010-2345-3456" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wNH-HS-gvn">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) 01098764321" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wNH-HS-gvn">
                                                         <rect key="frame" x="20" y="10" width="254" height="30"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" textContentType="tel"/>
                                                     </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -966,24 +966,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="loading2" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-jT-asL">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading2" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-jT-asL">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="뽀삐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="gTV-Tb-TGR" userLabel="Dog Name Label">
-                                <rect key="frame" x="50" y="723" width="69.5" height="48"/>
+                                <rect key="frame" x="50" y="753" width="69.5" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등록되고 있습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="eGr-Gs-dVn">
-                                <rect key="frame" x="50" y="776" width="214" height="36"/>
+                                <rect key="frame" x="50" y="806" width="214" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="O7c-b4-7Jt">
-                                <rect key="frame" x="124.5" y="732.5" width="26" height="36"/>
+                                <rect key="frame" x="124.5" y="762.5" width="26" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -999,14 +998,18 @@
                         <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="eGr-Gs-dVn" firstAttribute="top" secondItem="gTV-Tb-TGR" secondAttribute="bottom" constant="5" id="0ds-Yl-4Jo"/>
-                            <constraint firstItem="s8D-r8-1Fl" firstAttribute="bottom" secondItem="eGr-Gs-dVn" secondAttribute="bottom" constant="50" id="CBW-l8-4TG"/>
+                            <constraint firstItem="NPp-jT-asL" firstAttribute="top" secondItem="vhw-wJ-VRe" secondAttribute="top" id="6lF-w7-BIG"/>
+                            <constraint firstItem="s8D-r8-1Fl" firstAttribute="bottom" secondItem="eGr-Gs-dVn" secondAttribute="bottom" constant="20" id="CBW-l8-4TG"/>
                             <constraint firstItem="O7c-b4-7Jt" firstAttribute="firstBaseline" secondItem="gTV-Tb-TGR" secondAttribute="firstBaseline" id="FPK-8Q-gtE"/>
                             <constraint firstItem="s8D-r8-1Fl" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O7c-b4-7Jt" secondAttribute="trailing" symbolic="YES" id="Kit-2e-c1e"/>
                             <constraint firstItem="gTV-Tb-TGR" firstAttribute="leading" secondItem="eGr-Gs-dVn" secondAttribute="leading" id="NTg-Nf-VQs"/>
                             <constraint firstItem="s8D-r8-1Fl" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eGr-Gs-dVn" secondAttribute="trailing" symbolic="YES" id="OOE-Zs-kwQ"/>
+                            <constraint firstItem="NPp-jT-asL" firstAttribute="trailing" secondItem="vhw-wJ-VRe" secondAttribute="trailing" id="QNM-BC-vNf"/>
                             <constraint firstItem="O7c-b4-7Jt" firstAttribute="leading" secondItem="gTV-Tb-TGR" secondAttribute="trailing" constant="5" id="RgD-zc-gDF"/>
+                            <constraint firstAttribute="bottom" secondItem="NPp-jT-asL" secondAttribute="bottom" id="iZ2-qO-q7w"/>
                             <constraint firstItem="TNR-fl-faF" firstAttribute="centerX" secondItem="s8D-r8-1Fl" secondAttribute="centerX" id="s1O-nq-hx5"/>
                             <constraint firstItem="TNR-fl-faF" firstAttribute="top" secondItem="s8D-r8-1Fl" secondAttribute="top" constant="30" id="tEX-Pu-1ND"/>
+                            <constraint firstItem="NPp-jT-asL" firstAttribute="leading" secondItem="vhw-wJ-VRe" secondAttribute="leading" id="z1h-9m-Tca"/>
                             <constraint firstItem="eGr-Gs-dVn" firstAttribute="leading" secondItem="s8D-r8-1Fl" secondAttribute="leading" constant="50" id="zem-N6-57l"/>
                         </constraints>
                     </view>
