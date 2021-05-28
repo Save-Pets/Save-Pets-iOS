@@ -10,6 +10,7 @@
 		1C545652265D189A00115BA0 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C545651265D189A00115BA0 /* UIImageView+Extension.swift */; };
 		1C545656265E71D600115BA0 /* loading_video2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C545655265E71D600115BA0 /* loading_video2.mp4 */; };
 		1C54565C265E7BD800115BA0 /* main_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1C54565B265E7BD800115BA0 /* main_video.mp4 */; };
+		1C56B2AF26611ECD003134DC /* DogBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C56B2AE26611ECD003134DC /* DogBreed.swift */; };
 		1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */; };
 		1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */; };
 		1C5ED6182654C724005A515C /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5ED6172654C724005A515C /* GenericResponse.swift */; };
@@ -69,6 +70,7 @@
 		1C545651265D189A00115BA0 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		1C545655265E71D600115BA0 /* loading_video2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading_video2.mp4; sourceTree = "<group>"; };
 		1C54565B265E7BD800115BA0 /* main_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = main_video.mp4; sourceTree = "<group>"; };
+		1C56B2AE26611ECD003134DC /* DogBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreed.swift; sourceTree = "<group>"; };
 		1C583FEA264302C900C7893F /* EnrollmentLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentLoadingViewController.swift; sourceTree = "<group>"; };
 		1C583FEC2643031900C7893F /* EnrollmentResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentResultViewController.swift; sourceTree = "<group>"; };
 		1C5ED6172654C724005A515C /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				1C5ED6252654EFB6005A515C /* Enrollment.swift */,
 				1C5ED6272654EFC5005A515C /* Owner.swift */,
 				1C5ED6292654EFDC005A515C /* Dog.swift */,
+				1C56B2AE26611ECD003134DC /* DogBreed.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				1C583FED2643031900C7893F /* EnrollmentResultViewController.swift in Sources */,
 				1C7E7ED1264546920006636A /* DogNoseDetector.mlmodel in Sources */,
 				1CD73FC02649AB1900F3883A /* PreviewViewController.swift in Sources */,
+				1C56B2AF26611ECD003134DC /* DogBreed.swift in Sources */,
 				1C5ED62A2654EFDC005A515C /* Dog.swift in Sources */,
 				1C583FEB264302C900C7893F /* EnrollmentLoadingViewController.swift in Sources */,
 				1C5ED61C2654CB37005A515C /* EnrollmentService.swift in Sources */,
