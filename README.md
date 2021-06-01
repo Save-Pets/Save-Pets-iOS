@@ -1,8 +1,14 @@
 # 구해줘 펫즈, Save Pets
 
+</br>
+
 ### 1. 데모 영상
 
 [데모 영상 보러가기](https://user-images.githubusercontent.com/20268101/120226192-b0571980-c281-11eb-9c59-8288b7d655c1.mp4)
+
+
+
+
 
 ### 2. 서비스 소개
 
@@ -14,12 +20,18 @@
 
 #### [Client]
 
+
+
+</br>
+
 * **iOS**
   * UIKit
-  * DispatchSemaphore
+  * GCD (DispatchSemaphore)
   * AVFoundation
   * Vision
   * CoreML
+
+</br>
 
 
 
@@ -37,6 +49,8 @@ Vision 라이브러리에서 제공하는 VNCoreMLModel 은 CoreML 기반의 머
 정리하자면 Object Detection 모델인 YOLO 를 CoreML 형태로 학습하였고, 추출한 CoreML 모델(DogNoseDetector.mlmodel)을 Vision 라이브러리에 성공적으로 적용하였습니다.
 
 또한 CoreML을 사용했기 때문에 온전히 모바일 컴퓨팅 파워를 사용하여 반려견의 코를 실시간으로 검출하게 되었습니다.
+
+</br>
 
 
 
@@ -56,23 +70,23 @@ AVCaptureVideoDataOutputSampleBufferDelegate에서 제공하는 captureOutput �
 
 VNCoreMLRequest 객체를 생성할 때는 completionHandler 함수를 지정해줄 수 있는데, completionHandler 함수에서는 이미지 처리 결과값을 받아와 후처리 작업을 수행 할 수 있게 해줍니다. 
 
-후처리 작업에서는 결과값으로 받아온 반려견의 코와 콧구멍의 좌표(0~1 사이 값으로 정규화된 좌표)들을 활용하여 Detection Overlay Layer 위에 사각형 테두리들을 그려줍니다. 
+후 처리 작업에서는 결과값으로 받아온 반려견의 코와 콧구멍의 좌표(0~1 사이 값으로 정규화된 좌표)들을 활용하여 Detection Overlay Layer 위에 사각형 테두리들을 그려줍니다. 
 
-또한 후처리 작업을 수행할때마다 Detection Overlay Layer는 Preview Layer 위에서 계속 갱신됩니다.
+또한 후 처리 작업을 수행할때마다 Detection Overlay Layer는 Preview Layer 위에서 계속 갱신됩니다.
 
-
-
-#### 3) Vision 실행 결과를 다른 스레드간에 동기화 하는 방법 - DispatchSemaphore & Vision
-
-등록시에는 앨범내에서 여러 개의 비문을 선택하게됩니다.
-
-NoseSelectionViewController에서는 선택한 사진들을 VNImageRequestHandler 함수에 통과시킨 다음, 조건에 부합하는지 (반려견의 코가 존재 하는지, 코가 너무 작지는 않은지) 판단해야 합니다.
-
-이때 비동기로 VNImageRequestHandler 작업을 수행하는 스레드와 UI 를 그려주는 메인 스레드간에 공통으로 사용하는 index 변수가 동기화되지 않는 문제가 발생합니다.
-
-이 문제는 DispatchSemaphore 를 사용하여 쉽게 해결 할 수 있었습니다.
+</br>
 
 
+
+#### 3) Vision 작업 스레드와 메인 스레드 간에 동기화 - DispatchSemaphore & Vision
+
+NoseSelectionViewController에서는 유저가 선택한 여러 장의 비문 사진들이 조건에 부합하는지 (반려견의 코가 존재 하는지, 코가 너무 작지는 않은지) 검사하게 됩니다.
+
+이미지가 조건에 부합하는지 검사하는 과정에는 VNImageRequestHandler 함수가 사용되는데, 이 때 비동기로 VNImageRequestHandler 작업을 수행하는 스레드와 UI 를 그려주는 메인 스레드간에 공통으로 사용되는 클래스 멤버 변수가 동기화되지 않는 문제가 발생합니다.
+
+이 문제는 DispatchSemaphore에서 제공하는 wait과 signal 메소드를 사용하여 쉽게 해결 할 수 있었습니다.
+
+</br>
 
 ![120224786-0bd3d800-c27f-11eb-8ea0-c09641ec1c96](https://user-images.githubusercontent.com/20268101/120224786-0bd3d800-c27f-11eb-8ea0-c09641ec1c96.png)
 
@@ -83,54 +97,15 @@ NoseSelectionViewController에서는 선택한 사진들을 VNImageRequestHandle
 #### [Back end]
 
 * **Server**
-
   * Flask
   * MySQL
   * AWS
-
 * **Machine Learning**
-
   * OpenCV
-
   * Scikit learn
-
   * Pytorch
 
-    
-
-#### 1) 비문 등록 API
-
-`POST`  /register
-
-반려견 등록시 클라이언트에서 반려견의 정보, 등록자의 정보, 그리고 5개의 반려견 코가 서버로 보내지게 됩니다. 이때 서버에서는 등록을 시도하려는 반려견이 이미 DB에 등록되어 있는 반려견인지 확인하기 위해 내부적으로 조회하기 프로세스를 거치게 됩니다. 조회하기 프로세스는 아래와 동일합니다
-
-조회를 성공했다면 이미 등록이 된 반려견임으로, 이미 등록되어 있는 반려견의 정보를 보내줍니다.
-
-조회를 실패했다면 DB에 등록되어 있지 않은 새로운 반려견임으로, 내부적으로 등록하기 프로세스를 거칩니다.
-
-등록하기 프로세스를 거친 후, 등록이 성공되었으면 등록완료 메세지와 함께 반려견의 정보를 보내줍니다.
-
-
-
-#### 2) 비문 조회 API
-
-`POST`  /lookup
-
-조회시에는 한 장의 반려견의 코 사진이 필요합니다. 
-
-클라이언트에서 반려견 코 사진을 받게 되면 내부적으로 조회하기 프로세스를 거칩니다.
-
-조회를 성공했다면 DB에 등록되어 있다면 조회된 반려견 정보를 보내줍니다.
-
-조회를 실패했다면 조회된 반려견이 없습니다라는 메세지를 보내줍니다.
-
-
-
-#### 3) 비문 등록 Machine Learning Pipeline
-
-
-
-#### 4) 비문 조회 Machine Learning Pipeline
+</br>
 
 
 
